@@ -799,26 +799,26 @@ input[type="checkbox"] {
     border-radius: 12px !important; 
 } 
 
-.social-share {
+.community-links {
     margin-top: 3rem;
     padding-top: 2rem;
     border-top: 1px solid #eee;
 }
 
-.share-text {
+.spread-text {
     font-size: 1rem;
     color: #666;
     margin-bottom: 1rem;
 }
 
-.share-buttons {
+.action-buttons {
     display: flex;
     gap: 1rem;
     justify-content: center;
     flex-wrap: wrap;
 }
 
-.share-button {
+.action-button {
     display: inline-flex;
     align-items: center;
     padding: 0.75rem 1.5rem;
@@ -829,32 +829,32 @@ input[type="checkbox"] {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.share-button:hover {
+.action-button:hover {
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-.share-button.facebook {
+.action-button.fb-color {
     background-color: #1877F2;
     color: white;
 }
 
-.share-button.bluesky {
+.action-button.sky-color {
     background-color: #0560FF;
     color: white;
 }
 
-.share-button.threads {
+.action-button.dark-color {
     background-color: #000000;
     color: white;
 }
 
 @media (max-width: 768px) {
-    .share-buttons {
+    .action-buttons {
         flex-direction: column;
     }
     
-    .share-button {
+    .action-button {
         width: 100%;
         justify-content: center;
     }
