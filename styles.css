@@ -1136,4 +1136,82 @@ input[type="checkbox"] {
         max-width: 300px;
     }
 }
+
+/* Connect Section Styles */
+.connect-section {
+    margin: 4rem auto;
+    padding: 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(0, 128, 96, 0.1);
+}
+
+.connect-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.connect-content h3 {
+    color: #666;
+    font-size: 1.125rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+}
+
+.connect-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.connect-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #008060;
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    font-size: 0.9375rem;
+}
+
+.connect-link:hover {
+    background: rgba(0, 128, 96, 0.05);
+    transform: translateY(-1px);
+}
+
+.connect-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.connect-footer {
+    color: #666;
+    font-size: 0.875rem;
+    margin-top: 2rem;
+}
+
+.connect-footer a {
+    color: #008060;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.connect-footer a:hover {
+    color: #006048;
+    text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+    .connect-section {
+        margin: 2rem auto;
+        padding: 1.5rem;
+    }
+    
+    .connect-link {
+        padding: 0.5rem;
+    }
+}
   
