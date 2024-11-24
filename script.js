@@ -123,4 +123,18 @@ document.addEventListener('DOMContentLoaded', () => {
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', updateProgress);
     });
+
+    // Save checkbox states to localStorage
+    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        // Load saved state
+        const savedState = localStorage.getItem(checkbox.id);
+        if (savedState === 'true') {
+            checkbox.checked = true;
+        }
+        
+        // Save state on change
+        checkbox.addEventListener('change', (e) => {
+            localStorage.setItem(e.target.id, e.target.checked);
+        });
+    });
 }); 

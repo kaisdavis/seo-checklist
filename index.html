@@ -3,8 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopify SEO Checklist</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>Shopify SEO Checklist - Optimize Your Store for Search Engines</title>
+    <meta name="description" content="Free Shopify SEO checklist to boost your store's rankings, drive organic traffic, and improve visibility. Download the PDF for easy reference.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://shopifyseochecklist.net">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://shopifyseochecklist.net">
+    <meta property="og:title" content="Shopify SEO Checklist - Optimize Your Store">
+    <meta property="og:description" content="Free Shopify SEO checklist to boost your store's rankings and drive organic traffic.">
+    <meta property="og:image" content="https://shopifyseochecklist.net/seo.jpg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://shopifyseochecklist.net">
+    <meta name="twitter:title" content="Shopify SEO Checklist - Optimize Your Store">
+    <meta name="twitter:description" content="Free Shopify SEO checklist to boost your store's rankings and drive organic traffic.">
+    <meta name="twitter:image" content="https://shopifyseochecklist.net/seo.jpg">
+
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- Analytics Scripts -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GPFPKMD3QF"></script>
+    <script src="tracking.js"></script>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#008060">
 </head>
 <body>
     <div class="hero">
@@ -38,7 +68,7 @@
                 </div>
             </div>
             <div class="hero-image-wrapper">
-                <img src="seo.jpg" alt="SEO Optimization Illustration" class="hero-image">
+                <img src="seo.jpg" alt="SEO Optimization Illustration" class="hero-image" loading="eager" fetchpriority="high" width="600" height="400">
                 <div class="hero-image-bg"></div>
             </div>
         </div>
@@ -315,7 +345,7 @@
                       class="bento-formkit">
                     <div class="bento-formkit-headline">Get Your Free Shopify SEO Checklist</div>
                     <div class="bento-formkit-subheader">Save it for easy reference—get a beautifully formatted PDF sent to your email.</div>
-                    <input type="hidden" name="redirect" value="https://doubleyourecommerce.com/thank-you">
+                    <input type="hidden" name="redirect" value="/thank-you.html">
                     <input type="email" 
                            name="email" 
                            placeholder="Enter your email address" 
@@ -323,7 +353,11 @@
                            required 
                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"/>
                     <button type="submit" class="bento-formkit-button">Get Checklist</button>
-                    <div class="bento-formkit-disclosure">By signing up, you agree to our Privacy Policy and Terms of Service. We may send you occasional newsletters and promotional emails about our products and services. You can opt-out at any time.</div>
+                    <div class="bento-formkit-disclosure">
+                        By signing up, you agree to our <a href="/privacy.html">Privacy Policy</a> and <a href="/terms.html">Terms of Service</a>. 
+                        We may send you occasional newsletters and promotional emails about our products and services. 
+                        You can opt-out at any time.
+                    </div>
                 </form>
             </div>
         </div>

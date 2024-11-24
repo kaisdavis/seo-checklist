@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Sitemap: https://shopifyseochecklist.net/sitemap.xml
+
+# Prevent crawling of admin pages
+Disallow: /admin/
+Disallow: /cart
+Disallow: /orders
+Disallow: /checkout 
