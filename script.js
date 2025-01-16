@@ -81,6 +81,49 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load saved states
     loadCheckboxStates();
     
+    // Make entire checklist items clickable
+    const checklistItems = document.querySelectorAll('.checklist-item');
+    checklistItems.forEach(item => {
+        item.style.cursor = 'pointer'; // Add pointer cursor to indicate clickability
+        
+        item.addEventListener('click', (e) => {
+            // Find the checkbox within this item
+            const checkbox = item.querySelector('input[type="checkbox"]');
+            
+            // Don't toggle if clicking on a link or label
+            if (e.target.tagName === 'A' || 
+                e.target.tagName === 'LABEL' || 
+                e.target.closest('a') || 
+                e.target.closest('label')) {
+                return;
+            }
+            
+            // Toggle the checkbox
+            checkbox.checked = !checkbox.checked;
+            
+            // Trigger the change event manually
+            checkbox.dispatchEvent(new Event('change'));
+            
+            // Prevent text selection
+            e.preventDefault();
+        });
+        
+        // Prevent double-toggling when clicking the actual checkbox
+        item.querySelector('input[type="checkbox"]').addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        // Prevent text selection on the clickable area
+        item.addEventListener('mousedown', (e) => {
+            if (e.target.tagName !== 'A' && 
+                !e.target.closest('a') && 
+                e.target.tagName !== 'LABEL' && 
+                !e.target.closest('label')) {
+                e.preventDefault();
+            }
+        });
+    });
+
     // Initialize checkbox event listeners
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     checkboxes.forEach(checkbox => {
