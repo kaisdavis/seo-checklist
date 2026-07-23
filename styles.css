@@ -1003,6 +1003,23 @@ input[type="checkbox"] {
     box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.25) !important;
 }
 
+/* Optional first-name field: mirror the email input, neutral resting border
+   (placed after the generic :valid/:invalid rules so an empty optional field
+   stays neutral grey rather than reading as validated-green). */
+.bento-formkit input[type="text"] {
+    display: block !important;
+    width: 100% !important;
+    background-color: #fff !important;
+    border-radius: 12px !important;
+    border: 2px solid #ccc !important;
+    color: #333 !important;
+    cursor: text !important;
+    margin: 0 auto 12px !important;
+    padding: 9px 10px !important;
+    box-sizing: border-box !important;
+    font-size: 16px !important;
+}
+
 @media print {
     .hero, .hero-cta, .email-capture-section, .community-links {
         display: none !important;
