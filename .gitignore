@@ -2,3 +2,4 @@
 # root; this is just the intermediate print HTML and page previews.
 build/
 .DS_Store
+__pycache__/
