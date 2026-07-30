@@ -73,6 +73,12 @@
 /* ---------------------------------------------------------------------------
    Base
    --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
 body {
     background:
         linear-gradient(120deg, rgba(var(--accent-rgb), 0.03) 0%, rgba(var(--accent-rgb), 0.01) 100%),
@@ -174,15 +180,18 @@ button {
     align-items: center;
 }
 
+/* Page kicker. Same typographic marker language as the section numerals:
+   letterspaced caps over a short signal rule, no capsule. */
 .badge {
-    background: var(--accent-faded);
-    color: var(--accent-darker);
-    padding: 0.5rem 1rem;
-    border-radius: 2rem;
-    font-size: 0.875rem;
-    font-weight: 500;
     display: inline-block;
+    color: var(--accent-darker);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding-bottom: 0.375rem;
     margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--signal);
 }
 
 .hero h1 {
@@ -253,29 +262,37 @@ button {
     background: var(--hairline);
 }
 
+/* The hero art is page 1 of the actual PDF, framed as a sheet of paper: white
+   page, hairline border, one quiet amber rule on top echoing the capture card. */
 .hero-image-wrapper {
-    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.pdf-preview-link {
+    display: block;
+    max-width: 100%;
+    background: var(--page);
+    border: 1px solid var(--hairline);
+    border-top: 4px solid var(--signal);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.1);
+    transition: transform 0.18s ease-out, box-shadow 0.18s ease-out;
+}
+
+.pdf-preview-link:hover,
+.pdf-preview-link:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16);
 }
 
 .hero-image {
-    width: 100%;
+    display: block;
+    width: auto;
+    max-width: 100%;
+    max-height: 620px;
     height: auto;
-    position: relative;
-    z-index: 2;
-    border-radius: 1rem;
-    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
-}
-
-.hero-image-bg {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, var(--accent), var(--accent-darker));
-    border-radius: 1rem;
-    transform: rotate(-3deg) scale(0.95);
-    top: 10%;
-    right: -5%;
-    z-index: 1;
 }
 
 /* ---------------------------------------------------------------------------
@@ -1074,6 +1091,10 @@ label:hover {
     .hero-image-wrapper {
         margin-top: 2rem;
         padding: 0 1rem;
+    }
+
+    .hero-image {
+        max-height: 420px;
     }
 
     .action-buttons {

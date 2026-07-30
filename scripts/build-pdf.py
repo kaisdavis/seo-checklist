@@ -294,9 +294,11 @@ def render_flow(hero: dict, sections: list, today: str) -> str:
     toc = []
     for s in sections:
         n = len(s["items"])
+        # badge is the numeral (01 to 05) since the site's section markers went
+        # typographic; the row still needs the section name next to it.
         toc.append(
             '<div class="toc-row"><span class="t">'
-            f'{s["badge"]}</span>'
+            f'<span class="tnum">{s["badge"]}</span>{s["h2"]}</span>'
             f'<span class="n">{n} item{"s" if n != 1 else ""}</span></div>'
         )
 
