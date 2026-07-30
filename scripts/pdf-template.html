@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{TITLE}}</title>
+<style>
+:root{
+  --green:#157a50; --green-dark:#105c3c; --green-faded:#e3efea;
+  --amber:#fcd34d; --amber-dark:#bd9e3a;
+  --ink:#0f172a; --body:#334155; --muted:#64748b;
+  --hair:#e2e8f0; --surface:#f8fafc;
+  --sans:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --serif:Georgia,"Iowan Old Style","Times New Roman",Times,serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--serif); font-size:10.5pt; line-height:1.46; color:var(--body);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+a{color:var(--green-dark); text-decoration:none; border-bottom:.5pt solid rgba(21,122,80,.35)}
+
+/* ---------- page shell ---------- */
+@page{ size:letter; margin:0 }
+.page{
+  width:8.5in; height:10.9in; padding:.62in .8in .46in .8in;
+  display:flex; flex-direction:column; background:#fff;
+  page-break-after:always; break-after:page; position:relative; overflow:hidden;
+}
+.page:last-child{page-break-after:auto; break-after:auto}
+.page-body{flex:1 1 auto; min-height:0; overflow:hidden}
+.page-foot{
+  flex:0 0 auto; margin-top:.22in; padding-top:6px; border-top:.5pt solid var(--hair);
+  display:flex; justify-content:space-between; align-items:baseline;
+  font-family:var(--sans); font-size:7.5pt; letter-spacing:.02em; color:var(--muted);
+}
+.page-foot.is-hidden{visibility:hidden}
+.page-foot b{font-weight:600; color:var(--body)}
+.rule-top{position:absolute; top:0; left:0; right:0; height:3.5pt; background:var(--green)}
+
+/* ---------- cover ---------- */
+.cover{height:100%; display:flex; flex-direction:column}
+.cover .kicker{
+  font-family:var(--sans); font-size:8.5pt; font-weight:700; text-transform:uppercase;
+  letter-spacing:.16em; color:var(--green);
+}
+.cover h1{
+  font-family:var(--sans); font-weight:700; font-size:33pt; line-height:1.08;
+  letter-spacing:-.015em; color:var(--ink); margin:.24in 0 0 0; max-width:6.2in;
+}
+.cover .amber-rule{width:1.1in; height:4pt; background:var(--amber); margin:.24in 0 .2in}
+.cover .dek{font-size:12pt; line-height:1.52; max-width:5.4in; color:var(--body); margin:0}
+.cover .byline{margin-top:.4in; font-family:var(--sans); font-size:10pt; line-height:1.66; color:var(--body)}
+.cover .byline .who{font-weight:700; color:var(--ink)}
+.cover .byline .url{color:var(--green-dark)}
+.cover .spacer{flex:6 1 auto; min-height:.25in}
+.cover .spacer-b{flex:4 1 auto; min-height:0}
+.toc{border-top:.5pt solid var(--hair); margin-top:.3in}
+.toc-title{
+  font-family:var(--sans); font-size:8pt; font-weight:700; text-transform:uppercase;
+  letter-spacing:.14em; color:var(--muted); margin:10px 0 4px;
+}
+.toc-row{
+  display:flex; justify-content:space-between; align-items:baseline; gap:12px;
+  padding:8px 0; border-bottom:.5pt solid var(--hair);
+}
+.toc-row .t{font-family:var(--sans); font-size:10.5pt; font-weight:600; color:var(--ink)}
+.toc-row .n{font-family:var(--sans); font-size:8.5pt; color:var(--muted); white-space:nowrap}
+.cover .meta{
+  margin-top:.26in; font-family:var(--sans); font-size:8pt; color:var(--muted); letter-spacing:.02em;
+}
+
+/* ---------- section heads ---------- */
+.sec-head{padding-bottom:2px}
+.badge{
+  display:inline-block; font-family:var(--sans); font-size:8pt; font-weight:700;
+  text-transform:uppercase; letter-spacing:.14em; color:var(--green);
+}
+.sec-head h2{
+  font-family:var(--sans); font-weight:700; font-size:18.5pt; line-height:1.16;
+  letter-spacing:-.012em; color:var(--ink); margin:6px 0 0;
+}
+.sec-head .sec-dek{margin:8px 0 0; font-size:10pt; line-height:1.5; color:var(--body); max-width:6.1in}
+.sec-head .count{
+  font-family:var(--sans); font-size:8pt; font-weight:600; color:var(--muted);
+  letter-spacing:.08em; text-transform:uppercase; margin-top:9px;
+  padding-top:8px; border-top:.5pt solid var(--hair);
+}
+.sec-cont{
+  display:flex; align-items:baseline; gap:8px; padding-bottom:9px;
+  margin-bottom:11px; border-bottom:.5pt solid var(--hair);
+}
+.sec-cont .cont{font-family:var(--sans); font-size:8pt; color:var(--muted); letter-spacing:.06em; text-transform:uppercase}
+
+/* ---------- items ---------- */
+.item{
+  display:grid; grid-template-columns:16px 1fr; column-gap:11px;
+  padding:7.5px 0 8px; border-bottom:.5pt solid var(--hair);
+  page-break-inside:avoid; break-inside:avoid;
+}
+.cbx{
+  width:12px; height:12px; margin-top:3px; border:.75pt solid #94a3b8;
+  border-radius:1.5px; background:#fff;
+}
+.item .label{
+  font-family:var(--sans); font-size:10.5pt; font-weight:700; line-height:1.32;
+  color:var(--ink); margin:0;
+}
+.item .desc{margin:5px 0 0; font-size:9.5pt; line-height:1.44; color:var(--body)}
+.item .desc em{font-style:italic}
+.links{
+  margin:5px 0 0; font-family:var(--sans); font-size:8pt; line-height:1.5; color:var(--muted);
+}
+.links .lk-label{
+  font-weight:700; text-transform:uppercase; letter-spacing:.1em; font-size:7pt;
+  color:var(--amber-dark); margin-right:6px;
+}
+.links a{color:var(--muted); border-bottom:.5pt solid var(--hair); word-break:break-word}
+.links .sep{color:var(--hair); margin:0 4px}
+
+/* ---------- closing page ---------- */
+.cta h2{
+  font-family:var(--sans); font-weight:700; font-size:24pt; line-height:1.12;
+  letter-spacing:-.014em; color:var(--ink); margin:.05in 0 0;
+}
+.cta .amber-rule{width:1.1in; height:4pt; background:var(--amber); margin:.2in 0 .18in}
+.cta .dek{font-size:10.5pt; line-height:1.5; max-width:5.5in; margin:0}
+.offer{
+  margin-top:.3in; padding:.22in .24in; background:var(--surface);
+  border-left:3pt solid var(--green); page-break-inside:avoid; break-inside:avoid;
+}
+.offer h3{
+  font-family:var(--sans); font-size:12pt; font-weight:700; color:var(--ink);
+  margin:0 0 6px; letter-spacing:-.008em;
+}
+.offer p{margin:0; font-size:9.5pt; line-height:1.5}
+.offer .go{
+  display:block; margin-top:9px; font-family:var(--sans); font-size:9pt; font-weight:600;
+  color:var(--green-dark); border-bottom:0;
+}
+.cta .sign{
+  margin-top:.34in; padding-top:.16in; border-top:.5pt solid var(--hair);
+  font-family:var(--sans); font-size:9pt; line-height:1.6; color:var(--muted);
+}
+.cta .sign .who{font-weight:700; color:var(--ink)}
+.overflow-flag{
+  position:absolute; left:.8in; bottom:.3in; font-family:var(--sans); font-size:6pt;
+  color:#b91c1c; letter-spacing:.04em;
+}
+
+/* ---------- screen preview only ---------- */
+@media screen{
+  body{background:#e2e8f0; padding:24px 0}
+  .page{margin:0 auto 24px; box-shadow:0 1px 3px rgba(15,23,42,.18), 0 8px 24px rgba(15,23,42,.10)}
+}
+</style>
+</head>
+<body>
+<div id="pages"></div>
+<div id="flow" hidden>
+{{FLOW}}
+</div>
+<script>
+/* Paginator: flows the blocks in #flow into fixed-height .page containers so the
+   footer (page number + domain) is real on every page. Chrome's print engine has
+   no CSS page counters, so pagination is done here in the DOM before printing. */
+(function(){
+  var flow = document.getElementById('flow');
+  var out  = document.getElementById('pages');
+  var blocks = Array.prototype.slice.call(flow.children);
+  var page = null, body = null, warnings = [], meta = [], cur = null;
+
+  function newPage(hideFoot){
+    page = document.createElement('div');
+    page.className = 'page';
+    var rule = document.createElement('div'); rule.className = 'rule-top';
+    body = document.createElement('div'); body.className = 'page-body';
+    var foot = document.createElement('div'); foot.className = 'page-foot' + (hideFoot ? ' is-hidden' : '');
+    foot.innerHTML = '<span>Shopify SEO Checklist &nbsp;·&nbsp; doubleyourecommerce.com</span>' +
+                     '<span><b class="pno"></b></span>';
+    page.appendChild(rule); page.appendChild(body); page.appendChild(foot);
+    out.appendChild(page);
+    cur = { el: page, body: body, sec: null, items: [], hasHead: false };
+    meta.push(cur);
+    return page;
+  }
+
+  function fits(el){ return el.scrollHeight <= el.clientHeight + 1; }
+  function overflowing(){ return !fits(body); }
+
+  function track(b){
+    if (b.classList.contains('item')){ cur.items.push(b); cur.sec = b.dataset.sec; }
+    if (b.classList.contains('sec-head')){ cur.hasHead = true; cur.sec = b.dataset.sec; }
+  }
+
+  blocks.forEach(function(b){
+    var forceBreak = b.dataset.break === 'page';
+    var hideFoot   = b.dataset.nofoot === '1';
+    if (!page || (forceBreak && body.children.length)) newPage(hideFoot);
+    else if (forceBreak && hideFoot) page.querySelector('.page-foot').classList.add('is-hidden');
+
+    body.appendChild(b);
+    if (overflowing()){
+      body.removeChild(b);
+      newPage(false);
+      if (b.dataset.sec && b.classList.contains('item')){
+        var cont = document.createElement('div');
+        cont.className = 'sec-cont';
+        cont.innerHTML = '<span class="badge"></span><span class="cont">continued</span>';
+        cont.querySelector('.badge').textContent = b.dataset.sec;
+        body.appendChild(cont);
+      }
+      body.appendChild(b);
+      if (overflowing()){
+        warnings.push('block taller than one page: ' + (b.dataset.sec || b.className));
+        var flag = document.createElement('div');
+        flag.className = 'overflow-flag';
+        flag.textContent = 'PDF-LAYOUT-OVERFLOW';
+        page.appendChild(flag);
+      }
+    }
+    track(b);
+  });
+
+  /* Balance pass: a section that spills leaves a near-empty continuation page
+     (6 items then 1). Push items back across the break until the two pages are
+     within one item of each other, reverting any move that overflows. */
+  for (var m = 1; m < meta.length; m++){
+    var prev = meta[m - 1], next = meta[m];
+    if (!next.sec || next.sec !== prev.sec || next.hasHead) continue;
+    var guard = 0;
+    while (prev.items.length - next.items.length >= 2 && guard++ < 20){
+      var moved = prev.items[prev.items.length - 1];
+      next.body.insertBefore(moved, next.items[0]);
+      if (!fits(next.body)){
+        prev.body.appendChild(moved);   // moved was the last child, so this restores it
+        break;
+      }
+      prev.items.pop();
+      next.items.unshift(moved);
+    }
+  }
+
+  flow.parentNode.removeChild(flow);
+
+  var pages = out.children, total = pages.length;
+  for (var i = 0; i < total; i++){
+    var n = pages[i].querySelector('.pno');
+    if (n) n.textContent = 'Page ' + (i + 1) + ' of ' + total;
+  }
+  document.documentElement.setAttribute('data-pages', String(total));
+  if (warnings.length) document.documentElement.setAttribute('data-warnings', warnings.join(' | '));
+})();
+</script>
+</body>
+</html>
