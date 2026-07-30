@@ -354,28 +354,22 @@ def render_flow(hero: dict, sections: list, today: str) -> str:
   <span class="badge">Next step</span>
   <h2>Want a second pair of eyes on your store?</h2>
   <div class="amber-rule"></div>
-  <p class="dek">You have the list. If you would rather have someone tell you which of these
-  {total_items} items will move revenue for <em>your</em> store first, here are two ways to do that.</p>
+  <p class="dek">If you’d like someone to give you personalized advice about what will move
+  the needle for <em>your</em> store first, here are two ways to do that.</p>
 
   <div class="offer">
     <h3>Book a free consultation</h3>
-    <p>A short call about your store, your traffic, and the fastest SEO wins available to you.
-    No pitch deck, no pressure.</p>
+    <p>We’ll have a call so I can learn more about you, your store, your customers, and your
+    goals with SEO. I’ll share my recommendations for how I can help.</p>
     <a class="go" href="{CONSULT_URL}">{short_url(CONSULT_URL, 70)}</a>
   </div>
 
   <div class="offer">
     <h3>Get an SEO Opportunity Report</h3>
-    <p>A prioritized report on your store: what is holding your rankings back, what to fix first,
-    and what each fix is worth. Built for growing Shopify stores.</p>
+    <p>A prioritized report on what to do to grow your store.</p>
     <a class="go" href="{REPORT_URL}">{short_url(REPORT_URL, 70)}</a>
   </div>
 
-  <p class="sign">
-    <span class="who">Kai Davis</span><br>
-    Double Your Ecommerce &nbsp;·&nbsp; {short_url(SITE_URL)}<br>
-    This checklist stays current at shopifyseochecklist.net. Grab the latest copy any time.
-  </p>
 </section>"""
     )
 
