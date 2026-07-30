@@ -1020,11 +1020,192 @@ input[type="checkbox"] {
     font-size: 16px !important;
 }
 
+/* ---------------------------------------------------------------------------
+   Progress UI (dye tokens: accent #157a50, signal #fcd34d, slate neutrals).
+   Styles moved out of script.js, which used to inject them at runtime.
+   --------------------------------------------------------------------------- */
+.save-indicator {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #157a50;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.9em;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 200;
+}
+
+.save-indicator.show {
+    opacity: 1;
+}
+
+.progress-counter {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid #157a50;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+}
+
+.progress-counter.is-complete {
+    border-left-color: #fcd34d;
+}
+
+.progress-counter-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.progress-counter-label {
+    font-weight: 600;
+    color: #0f172a;
+    font-size: 0.9375rem;
+}
+
+.progress-reset {
+    background: transparent;
+    border: 1px solid #e2e8f0;
+    color: #64748b;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    padding: 0.375rem 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.progress-reset:hover {
+    color: #105c3c;
+    border-color: #157a50;
+    background: #e3efea;
+}
+
+.progress-reset:focus-visible {
+    outline: 3px solid #fcd34d;
+    outline-offset: 2px;
+}
+
+.progress-track {
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0;
+    background: #157a50;
+    border-radius: 999px;
+    transition: width 0.25s ease;
+}
+
+.progress-counter.is-complete .progress-fill {
+    background: #fcd34d;
+}
+
+.section-progress {
+    display: inline-block;
+    margin-top: 0.75rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: 999px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: #64748b;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.section-progress.is-complete {
+    background: #e3efea;
+    border-color: #157a50;
+    color: #105c3c;
+}
+
+/* ---------------------------------------------------------------------------
+   Slim mobile-only sticky capture bar. Hidden on desktop, dismissible, and the
+   dismissal is remembered in localStorage (see script.js).
+   --------------------------------------------------------------------------- */
+.sticky-capture {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .sticky-capture:not([hidden]) {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 150;
+        padding: 0.625rem 0.75rem;
+        background: #ffffff;
+        border-top: 3px solid #fcd34d;
+        box-shadow: 0 -2px 12px rgba(15, 23, 42, 0.12);
+    }
+
+    .sticky-capture-text {
+        flex: 1;
+        font-size: 0.8125rem;
+        line-height: 1.35;
+        color: #334155;
+    }
+
+    .sticky-capture-cta {
+        flex-shrink: 0;
+        background: #157a50;
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 0.8125rem;
+        font-weight: 700;
+        padding: 0.5rem 0.875rem;
+        border-radius: 8px;
+    }
+
+    .sticky-capture-dismiss {
+        flex-shrink: 0;
+        background: transparent;
+        border: none;
+        color: #64748b;
+        font-size: 1.25rem;
+        line-height: 1;
+        padding: 0.25rem 0.375rem;
+        cursor: pointer;
+    }
+
+    /* Keep the bar from covering the page footer. */
+    .connect-section {
+        padding-bottom: 4.5rem;
+    }
+}
+
 @media print {
-    .hero, .hero-cta, .email-capture-section, .community-links {
+    .hero, .hero-cta, .email-capture-section, .community-links,
+    .cta-section, .connect-section, .sticky-capture,
+    .progress-reset, .save-indicator {
         display: none !important;
     }
-    
+
+    .progress-counter {
+        position: static !important;
+        box-shadow: none !important;
+    }
+
     .checklist-grid {
         grid-template-columns: 1fr !important;
     }
