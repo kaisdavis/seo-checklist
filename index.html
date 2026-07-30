@@ -203,9 +203,6 @@
 
         <div class="email-capture-section" id="pdf-download">
             <div class="capture-content">
-                <h2>Get This SEO Checklist as a PDF</h2>
-                <p class="capture-description">Save this checklist for easy reference. We'll send you a beautifully formatted PDF to print or keep handy.</p>
-                
                 <form action="https://track.bentonow.com/forms/c98ff74095500fd87c0dbea6f6360524/$requested-seo-checklist?hardened=true" 
                       method="POST" 
                       enctype="multipart/form-data" 
@@ -556,6 +553,14 @@
                 </p>
             </div>
         </div>
+    </div>
+
+    <!-- Slim mobile-only capture bar. Hidden until script.js confirms it has not
+         been dismissed before (localStorage: seoChecklistStickyDismissed). -->
+    <div class="sticky-capture" hidden>
+        <span class="sticky-capture-text">Want this checklist as a PDF?</span>
+        <a href="#pdf-download" class="sticky-capture-cta" data-sticky-cta>Get it free</a>
+        <button type="button" class="sticky-capture-dismiss" data-sticky-dismiss aria-label="Dismiss">&times;</button>
     </div>
 
     <script src="script.js"></script>
