@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-build-pdf.py — regenerate shopify-seo-checklist.pdf from index.html.
+build-pdf.py: regenerate shopify-seo-checklist.pdf from index.html.
 
 index.html is the single source of truth. This script parses it, mirrors every
 checklist item verbatim (label + description + links), renders a print-designed
