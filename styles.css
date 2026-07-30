@@ -179,7 +179,7 @@ label:hover {
 }
 
 .email-capture-section {
-    background: linear-gradient(135deg, #6366F1 0%, #7C3AED 100%);
+    background: linear-gradient(135deg, #157a50 0%, #105c3c 100%);
     border-radius: 1rem;
     padding: 4rem 2rem;
     position: relative;
@@ -253,33 +253,49 @@ label:hover {
     font-size: 16px !important;
 }
 
-.bento-formkit input:focus:valid { 
-    border-color: green !important; 
+/* Neutral-until-touched validation. script.js sets `data-touched` on blur with
+   content and on submit, so an empty required field never reads red on first
+   click (the old `:focus:invalid` rule did exactly that). */
+.bento-formkit input:focus {
+    border-color: #157a50 !important;
+    box-shadow: 0 0 0 3px rgba(21, 122, 80, 0.15) !important;
+    outline: none !important;
 }
 
-.bento-formkit input:focus:invalid { 
-    border-color: red !important; 
+.bento-formkit input[data-touched]:valid {
+    border-color: #157a50 !important;
 }
 
-.bento-formkit button { 
-    text-align: center !important; 
-    background-color: #0095FF !important; 
-    font-weight: 800 !important; 
-    color: white !important; 
+.bento-formkit input[data-touched]:invalid {
+    border-color: #b91c1c !important;
+    box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.12) !important;
+}
+
+.bento-formkit button {
+    text-align: center !important;
+    background-color: #157a50 !important;
+    font-weight: 800 !important;
+    color: white !important;
     padding: 14px 24px !important;
-    margin: 0 auto !important; 
-    border: none !important; 
-    cursor: pointer !important; 
-    width: 100% !important; 
-    border-radius: 12px !important; 
+    margin: 0 auto !important;
+    border: none !important;
+    cursor: pointer !important;
+    width: 100% !important;
+    border-radius: 12px !important;
     font-size: 18px !important;
-    box-shadow: 0 4px 12px rgba(0,149,255,0.2) !important;
-    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    box-shadow: 0 4px 12px rgba(21, 122, 80, 0.2) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease !important;
 }
 
 .bento-formkit button:hover {
+    background-color: #105c3c !important;
     transform: translateY(-1px) !important;
-    box-shadow: 0 6px 16px rgba(0,149,255,0.25) !important;
+    box-shadow: 0 6px 16px rgba(21, 122, 80, 0.28) !important;
+}
+
+.bento-formkit button:focus-visible {
+    outline: 3px solid #fcd34d !important;
+    outline-offset: 2px !important;
 }
 
 .bento-formkit-disclosure { 
@@ -453,7 +469,7 @@ input[type="checkbox"] {
 }
 
 .email-capture-section {
-    background: linear-gradient(135deg, #4F46E5 0%, #9333EA 100%);
+    background: linear-gradient(135deg, #157a50 0%, #105c3c 100%);
     border-radius: 1rem;
     padding: 4rem;
     position: relative;
@@ -778,26 +794,37 @@ input[type="checkbox"] {
     font-size: 16px !important;
 }
 
-.bento-formkit input:focus:valid { 
-    border-color: green !important; 
+/* Neutral-until-touched validation. script.js sets `data-touched` on blur with
+   content and on submit, so an empty required field never reads red on first
+   click (the old `:focus:invalid` rule did exactly that). */
+.bento-formkit input:focus {
+    border-color: #157a50 !important;
+    box-shadow: 0 0 0 3px rgba(21, 122, 80, 0.15) !important;
+    outline: none !important;
 }
 
-.bento-formkit input:focus:invalid { 
-    border-color: red !important; 
+.bento-formkit input[data-touched]:valid {
+    border-color: #157a50 !important;
 }
 
-.bento-formkit button { 
-    text-align: center !important; 
-    background-color: #0095FF !important; 
-    font-weight: 800 !important; 
-    color: white !important; 
-    padding: 12px 20px !important; 
-    margin: 0 auto !important; 
-    border: none !important; 
-    cursor: pointer !important; 
-    width: 100% !important; 
-    border-radius: 12px !important; 
-} 
+.bento-formkit input[data-touched]:invalid {
+    border-color: #b91c1c !important;
+    box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.12) !important;
+}
+
+.bento-formkit button {
+    text-align: center !important;
+    background-color: #157a50 !important;
+    font-weight: 800 !important;
+    color: white !important;
+    padding: 12px 20px !important;
+    margin: 0 auto !important;
+    border: none !important;
+    cursor: pointer !important;
+    width: 100% !important;
+    border-radius: 12px !important;
+}
+
 
 .community-links {
     margin-top: 3rem;
@@ -987,20 +1014,14 @@ input[type="checkbox"] {
     }
 }
 
-.bento-formkit input:invalid {
-    border-color: #dc3545 !important;
-}
+/* The old blanket `input:invalid` / `input:valid` pair lived here. It painted an
+   untouched required email red at rest, so it is gone; the touched-gated rules
+   above (`input[data-touched]:valid|:invalid`) carry validation now. */
 
-.bento-formkit input:invalid:focus {
-    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.25) !important;
-}
-
-.bento-formkit input:valid {
-    border-color: #28a745 !important;
-}
-
-.bento-formkit input:valid:focus {
-    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.25) !important;
+/* Amber signal accent on the capture card, the one place the dye signal colour
+   earns its keep on this page. */
+.bento-formkit {
+    border-top: 4px solid #fcd34d !important;
 }
 
 /* Optional first-name field: mirror the email input, neutral resting border
