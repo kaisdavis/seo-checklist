@@ -1,31 +1,123 @@
+/* ===========================================================================
+   shopifyseochecklist.net
+   One stylesheet, one design system: the DYE brand tokens (light mode only).
+   Previously three archaeology layers (template green + material green + a
+   partial DYE migration) with a dozen rules defined twice. Collapsed.
+   =========================================================================== */
+
+:root {
+    /* Surfaces */
+    --page: #ffffff;
+    --surface: #f8fafc;
+    --hairline: #e2e8f0;
+
+    /* Ink */
+    --ink-display: #0f172a;
+    --ink-body: #334155;
+    --ink-muted: #64748b;
+
+    /* Accent (green) */
+    --accent: #157a50;
+    --accent-rgb: 21, 122, 80;
+    --accent-faded: #e3efea;
+    --accent-darker: #105c3c;
+
+    /* Signal (amber) */
+    --signal: #fcd34d;
+    --signal-faded: #fffaea;
+    --signal-darker: #bd9e3a;
+
+    /* Type */
+    --font-display: 'Bricolage Grotesque', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --font-body: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* ---------------------------------------------------------------------------
+   Self-hosted faces. Latin subsets pulled from Google Fonts, served locally so
+   there is no third-party request on the critical path.
+   --------------------------------------------------------------------------- */
+@font-face {
+    font-family: 'Bricolage Grotesque';
+    font-style: normal;
+    font-weight: 800;
+    font-stretch: 100%;
+    font-display: swap;
+    src: url('fonts/bricolage-grotesque-800-latin.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+        U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
+        U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Atkinson Hyperlegible';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('fonts/atkinson-hyperlegible-400-latin.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+        U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
+        U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Atkinson Hyperlegible';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('fonts/atkinson-hyperlegible-700-latin.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+        U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
+        U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+   --------------------------------------------------------------------------- */
 body {
-    background: 
-        linear-gradient(120deg, rgba(0, 128, 96, 0.03) 0%, rgba(0, 128, 96, 0.01) 100%),
-        radial-gradient(circle at 50% 0%, rgba(0, 128, 96, 0.03) 0%, transparent 50%),
-        radial-gradient(circle at 100% 50%, rgba(0, 128, 96, 0.02) 0%, transparent 50%);
+    background:
+        linear-gradient(120deg, rgba(var(--accent-rgb), 0.03) 0%, rgba(var(--accent-rgb), 0.01) 100%),
+        radial-gradient(circle at 50% 0%, rgba(var(--accent-rgb), 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 100% 50%, rgba(var(--accent-rgb), 0.02) 0%, transparent 50%);
     background-attachment: fixed;
     position: relative;
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-family: var(--font-body);
     line-height: 1.6;
-    color: #333;
+    color: var(--ink-body);
     margin: 0;
     min-height: 100vh;
 }
 
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        radial-gradient(#008060 1px, transparent 1px),
-        radial-gradient(#008060 1px, transparent 1px);
-    background-size: 60px 60px;
-    background-position: 0 0, 30px 30px;
-    opacity: 0.02;
-    pointer-events: none;
+h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 800;
+}
+
+h1, h2 {
+    color: var(--ink-display);
+    text-wrap: balance;
+}
+
+a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--accent-darker);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+    outline: 3px solid var(--signal);
+    outline-offset: 2px;
+}
+
+button {
+    font-family: inherit;
 }
 
 .section-container, .hero {
@@ -33,8 +125,25 @@ body::before {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+}
+
+.section-container {
+    padding: 2rem;
+}
+
+.intro {
+    margin-bottom: 40px;
+}
+
+/* ---------------------------------------------------------------------------
+   Hero
+   --------------------------------------------------------------------------- */
+.hero {
+    padding: 6rem 2rem;
+    background: linear-gradient(160deg, rgba(var(--accent-rgb), 0.08) 0%, rgba(var(--accent-rgb), 0.03) 100%);
+    position: relative;
+    overflow: hidden;
+    margin-top: 3rem;
 }
 
 .hero::before {
@@ -47,513 +156,13 @@ body::before {
     height: 1000px;
     background: radial-gradient(
         circle at center,
-        rgba(0, 128, 96, 0.08) 0%,
-        rgba(0, 128, 96, 0.05) 25%,
-        rgba(0, 128, 96, 0.01) 50%,
+        rgba(var(--accent-rgb), 0.08) 0%,
+        rgba(var(--accent-rgb), 0.05) 25%,
+        rgba(var(--accent-rgb), 0.01) 50%,
         transparent 70%
     );
     pointer-events: none;
     z-index: -1;
-}
-
-.hero::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)' opacity='0.015'/%3E%3C/svg%3E");
-    opacity: 0.5;
-    z-index: -1;
-    pointer-events: none;
-}
-
-h1, h2 {
-    color: #008060;
-}
-
-.intro {
-    margin-bottom: 40px;
-}
-
-.section {
-    background: white;
-    padding: 25px;
-    border-radius: 8px;
-    margin-bottom: 30px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    border-left: 4px solid #008060;
-}
-
-.checklist-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-top: 20px;
-}
-
-.checklist-item {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    min-height: fit-content;
-}
-
-.checkbox-wrapper {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    width: 100%;
-}
-
-input[type="checkbox"] {
-    margin-top: 4px;
-    accent-color: #008060;
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
-}
-
-label {
-    cursor: pointer;
-    flex-grow: 1;
-}
-
-label:hover {
-    color: #008060;
-}
-
-.item-description {
-    font-size: 0.85em;
-    color: #666;
-    margin-left: 26px;
-    line-height: 1.4;
-    margin-top: 2px;
-}
-
-.cta-section {
-    background: white;
-    padding: 4rem;
-    border-radius: 1rem;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    margin-bottom: 2rem;
-}
-
-.cta-section h2 {
-    font-size: 2.5rem;
-    color: #111827;
-    margin-bottom: 1rem;
-    font-weight: 700;
-}
-
-.cta-section p {
-    max-width: 600px;
-    margin: 0 auto 2rem auto;
-    color: #6B7280;
-    font-size: 1.125rem;
-    line-height: 1.6;
-}
-
-.cta-section .primary-button {
-    display: inline-block;
-    font-size: 1.125rem;
-    padding: 1rem 2rem;
-}
-
-@media (max-width: 768px) {
-    .cta-section {
-        padding: 2rem;
-    }
-
-    .cta-section h2 {
-        font-size: 2rem;
-    }
-
-    .cta-section p {
-        font-size: 1rem;
-        margin-bottom: 1.5rem;
-    }
-}
-
-.email-capture-section {
-    background: linear-gradient(135deg, #157a50 0%, #105c3c 100%);
-    border-radius: 1rem;
-    padding: 4rem 2rem;
-    position: relative;
-    overflow: hidden;
-    margin: 4rem auto;
-    max-width: 1200px;
-}
-
-.capture-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.capture-content h2 {
-    color: white;
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    font-weight: 700;
-}
-
-.capture-description {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 1.25rem;
-    margin-bottom: 3rem;
-    line-height: 1.6;
-}
-
-.bento-formkit { 
-    width: 100% !important; 
-    line-height: 24px !important; 
-    max-width: 600px !important; 
-    box-sizing: border-box !important; 
-    padding: 50px 30px !important;
-    border-radius: 12px !important; 
-    background: #fff !important; 
-    border: 2px solid rgba(0, 0, 0, 0.15) !important; 
-    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1) !important; 
-    font-family: gs-inter-2020-11, 'Helvetica Neue', Helvetica, Arial, sans-serif !important; 
-    position: relative !important; 
-    margin: 0 auto !important; 
-    text-align: center !important;
-}
-
-.bento-formkit-headline { 
-    font-size: 24px !important; 
-    font-weight: bold !important; 
-    color: #333 !important; 
-    margin-bottom: 10px !important; 
-}
-
-.bento-formkit-subheader { 
-    font-size: 16px !important; 
-    color: #666 !important; 
-    margin-bottom: 25px !important;
-}
-
-.bento-formkit input[type="email"] { 
-    display: block !important; 
-    width: 100% !important; 
-    background-color: #fff !important; 
-    border-radius: 12px !important; 
-    border: 2px solid #ccc !important; 
-    color: #333 !important; 
-    cursor: text !important; 
-    margin: 0 auto 12px !important; 
-    padding: 9px 10px !important; 
-    box-sizing: border-box !important; 
-    font-size: 16px !important;
-}
-
-/* Neutral-until-touched validation. script.js sets `data-touched` on blur with
-   content and on submit, so an empty required field never reads red on first
-   click (the old `:focus:invalid` rule did exactly that). */
-.bento-formkit input:focus {
-    border-color: #157a50 !important;
-    box-shadow: 0 0 0 3px rgba(21, 122, 80, 0.15) !important;
-    outline: none !important;
-}
-
-.bento-formkit input[data-touched]:valid {
-    border-color: #157a50 !important;
-}
-
-.bento-formkit input[data-touched]:invalid {
-    border-color: #b91c1c !important;
-    box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.12) !important;
-}
-
-.bento-formkit button {
-    text-align: center !important;
-    background-color: #157a50 !important;
-    font-weight: 800 !important;
-    color: white !important;
-    padding: 14px 24px !important;
-    margin: 0 auto !important;
-    border: none !important;
-    cursor: pointer !important;
-    width: 100% !important;
-    border-radius: 12px !important;
-    font-size: 18px !important;
-    box-shadow: 0 4px 12px rgba(21, 122, 80, 0.2) !important;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease !important;
-}
-
-.bento-formkit button:hover {
-    background-color: #105c3c !important;
-    transform: translateY(-1px) !important;
-    box-shadow: 0 6px 16px rgba(21, 122, 80, 0.28) !important;
-}
-
-.bento-formkit button:focus-visible {
-    outline: 3px solid #fcd34d !important;
-    outline-offset: 2px !important;
-}
-
-.bento-formkit-disclosure { 
-    font-size: 11px !important;
-    color: #888 !important;
-    margin-top: 12px !important;
-    line-height: 1.5 !important;
-}
-
-@media (max-width: 768px) {
-    .email-capture-section {
-        padding: 2rem;
-    }
-
-    .capture-content h2 {
-        font-size: 2rem;
-    }
-
-    .email-form .form-group {
-        flex-direction: column;
-    }
-
-    .email-form input[type="email"],
-    .email-form .primary-button {
-        width: 100%;
-    }
-}
-
-/* Update color variables for better contrast */
-:root {
-    --primary-color: #008060;
-    --primary-rgb: 0, 128, 96;
-    --text-secondary: #4B5563;
-}
-
-/* Add some decorative elements */
-.email-capture-section::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
-    transform: rotate(45deg);
-}
-
-.email-capture-section::after {
-    content: '';
-    position: absolute;
-    bottom: -50%;
-    left: -50%;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
-    transform: rotate(45deg);
-}
-
-@media (max-width: 768px) {
-    .email-capture-section {
-        padding: 2rem;
-    }
-
-    .capture-content h2 {
-        font-size: 2rem;
-    }
-
-    .email-form .form-group {
-        flex-direction: column;
-    }
-
-    .email-form input[type="email"],
-    .email-form .primary-button {
-        width: 100%;
-    }
-}
-
-.section-container {
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.section {
-    background: white;
-    border-radius: 1rem;
-    padding: 3rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.section-header {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.section-badge {
-    background: rgba(79, 70, 229, 0.1);
-    color: #4F46E5;
-    padding: 0.5rem 1rem;
-    border-radius: 2rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    display: inline-block;
-    margin-bottom: 1rem;
-}
-
-.section h2 {
-    font-size: 2.5rem;
-    color: #111827;
-    margin-bottom: 1rem;
-    font-weight: 700;
-}
-
-.section-description {
-    color: #6B7280;
-    font-size: 1.125rem;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.checklist-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-}
-
-.checklist-item {
-    background: #f8faff;
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.checklist-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
-}
-
-.checkbox-wrapper {
-    display: flex;
-    gap: 1rem;
-}
-
-.checkbox-content {
-    flex: 1;
-}
-
-input[type="checkbox"] {
-    width: 1.25rem;
-    height: 1.25rem;
-    border-radius: 0.375rem;
-    border: 2px solid #E5E7EB;
-    accent-color: #4F46E5;
-    cursor: pointer;
-}
-
-.checkbox-content label {
-    display: block;
-    font-weight: 500;
-    color: #111827;
-    margin-bottom: 0.5rem;
-    font-size: 1.125rem;
-}
-
-.item-description {
-    color: #6B7280;
-    font-size: 0.875rem;
-    line-height: 1.5;
-}
-
-.email-capture-section {
-    background: linear-gradient(135deg, #157a50 0%, #105c3c 100%);
-    border-radius: 1rem;
-    padding: 4rem;
-    position: relative;
-    overflow: hidden;
-    margin: 4rem 0;
-}
-
-.capture-content {
-    position: relative;
-    z-index: 2;
-    color: white;
-    text-align: center;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.capture-decoration {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-image: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 40%);
-}
-
-.email-form {
-    margin-top: 2rem;
-}
-
-.form-group {
-    display: flex;
-    gap: 1rem;
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-.form-group input[type="email"] {
-    flex: 1;
-    padding: 1rem 1.5rem;
-    border-radius: 0.5rem;
-    border: none;
-    font-size: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.form-footer {
-    margin-top: 1rem;
-    opacity: 0.8;
-    font-size: 0.875rem;
-}
-
-@media (max-width: 768px) {
-    .section-container {
-        padding: 1rem;
-    }
-
-    .section {
-        padding: 2rem;
-    }
-
-    .checklist-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .section h2 {
-        font-size: 2rem;
-    }
-
-    .form-group {
-        flex-direction: column;
-    }
-
-    .email-capture-section {
-        padding: 2rem;
-    }
-}
-
-/* Hero Section Styles */
-.hero {
-    padding: 6rem 2rem;
-    background: linear-gradient(180deg, rgba(0, 128, 96, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
-    position: relative;
-    overflow: hidden;
-    margin-top: 3rem;
 }
 
 .hero-content {
@@ -566,8 +175,8 @@ input[type="checkbox"] {
 }
 
 .badge {
-    background: rgba(0, 128, 96, 0.1);
-    color: #008060;
+    background: var(--accent-faded);
+    color: var(--accent-darker);
     padding: 0.5rem 1rem;
     border-radius: 2rem;
     font-size: 0.875rem;
@@ -579,54 +188,30 @@ input[type="checkbox"] {
 .hero h1 {
     font-size: 3.25rem;
     line-height: 1.1;
-    font-weight: 700;
     margin-bottom: 1.5rem;
-    color: #111827;
+    color: var(--ink-display);
 }
 
 .hero-subtitle {
     font-size: 1.25rem;
     line-height: 1.6;
-    color: #4B5563;
+    color: var(--ink-body);
     margin-bottom: 2rem;
 }
 
 .hero-cta {
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
-    justify-content: center;
+    justify-content: flex-start;
     margin: 2rem 0;
 }
 
 .hero-cta button {
-    flex: 1;
-    max-width: 200px;
     padding: 1rem 2rem;
     font-size: 1rem;
-    transition: all 0.3s ease;
-}
-
-.primary-button {
-    background: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 6px;
-}
-
-.primary-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.primary-button.outline {
-    background: transparent;
-    border: 2px solid var(--primary-color);
-    color: var(--primary-color);
-}
-
-.primary-button.outline:hover {
-    background: var(--primary-color);
-    color: white;
+    transition: transform 0.2s ease, box-shadow 0.2s ease,
+        background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .social-proof {
@@ -649,34 +234,23 @@ input[type="checkbox"] {
 }
 
 .stat-number {
+    font-family: var(--font-display);
     font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--primary-color);
+    font-weight: 800;
+    color: var(--accent);
     line-height: 1.2;
 }
 
 .stat-label {
     font-size: 0.9rem;
-    color: var(--text-secondary);
+    color: var(--ink-muted);
     margin-top: 0.5rem;
 }
 
 .stat-divider {
     width: 1px;
     height: 40px;
-    background: rgba(0,0,0,0.1);
-}
-
-/* Update the hero background gradient */
-.hero {
-    background: linear-gradient(160deg, rgba(var(--primary-rgb), 0.08) 0%, rgba(var(--primary-rgb), 0.03) 100%);
-}
-
-/* Optional: Add these variables to your root */
-:root {
-    --primary-color: #2E7D32; /* Your green color */
-    --primary-rgb: 46, 125, 50; /* RGB values of your green color */
-    --text-secondary: #666;
+    background: var(--hairline);
 }
 
 .hero-image-wrapper {
@@ -689,14 +263,14 @@ input[type="checkbox"] {
     position: relative;
     z-index: 2;
     border-radius: 1rem;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
 }
 
 .hero-image-bg {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: linear-gradient(45deg, #008060, #004C3F);
+    background: linear-gradient(45deg, var(--accent), var(--accent-darker));
     border-radius: 1rem;
     transform: rotate(-3deg) scale(0.95);
     top: 10%;
@@ -704,7 +278,762 @@ input[type="checkbox"] {
     z-index: 1;
 }
 
+/* ---------------------------------------------------------------------------
+   Buttons
+   --------------------------------------------------------------------------- */
+.primary-button {
+    background: var(--accent);
+    color: var(--page);
+    border: 2px solid var(--accent);
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.primary-button:hover {
+    background: var(--accent-darker);
+    border-color: var(--accent-darker);
+    color: var(--page);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
+}
+
+.primary-button.outline {
+    background: transparent;
+    border: 2px solid var(--accent);
+    color: var(--accent);
+}
+
+.primary-button.outline:hover {
+    background: var(--accent);
+    color: var(--page);
+}
+
+/* ---------------------------------------------------------------------------
+   Sections
+   --------------------------------------------------------------------------- */
+.section {
+    background: var(--page);
+    border: 1px solid var(--hairline);
+    border-radius: 1rem;
+    padding: 3rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(15, 23, 42, 0.05);
+}
+
+.section-header {
+    text-align: left;
+    margin-bottom: 3rem;
+}
+
+/* Typographic numeral marker (01 to 05), not a coloured pill. */
+.section-badge {
+    display: inline-block;
+    color: var(--ink-muted);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+    padding-bottom: 0.375rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--signal);
+}
+
+.section h2 {
+    font-size: 1.75rem;
+    color: var(--ink-display);
+    margin-bottom: 1rem;
+}
+
+.section-description {
+    color: var(--ink-muted);
+    font-size: 1.125rem;
+    max-width: 600px;
+}
+
+/* Thank-you and legal pages keep their centred header. */
+.thank-you-section .section-header,
+.legal-section .section-header {
+    text-align: center;
+}
+
+.thank-you-section .section-description,
+.legal-section .section-description {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ---------------------------------------------------------------------------
+   Checklist
+   --------------------------------------------------------------------------- */
+.checklist-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 20px;
+}
+
+.checklist-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-height: fit-content;
+    background: var(--surface);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.checklist-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(15, 23, 42, 0.05);
+}
+
+.checkbox-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
+}
+
+.checkbox-content {
+    flex: 1;
+}
+
+input[type="checkbox"] {
+    margin-top: 4px;
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+    border-radius: 0.375rem;
+    border: 2px solid var(--hairline);
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+
+label {
+    cursor: pointer;
+    flex-grow: 1;
+}
+
+label:hover {
+    color: var(--accent);
+}
+
+.checkbox-content label {
+    display: block;
+    font-weight: 700;
+    color: var(--ink-display);
+    margin-bottom: 0.5rem;
+    font-size: 1.125rem;
+}
+
+.item-description {
+    color: var(--ink-muted);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-left: 26px;
+    margin-top: 2px;
+}
+
+/* ---------------------------------------------------------------------------
+   Email capture
+   --------------------------------------------------------------------------- */
+.email-capture-section {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-darker) 100%);
+    border-radius: 1rem;
+    padding: 4rem;
+    position: relative;
+    overflow: hidden;
+    margin: 4rem 0;
+    max-width: 1200px;
+}
+
+.capture-content {
+    position: relative;
+    z-index: 2;
+    color: var(--page);
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.capture-content h2 {
+    color: var(--page);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.capture-description {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.25rem;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+}
+
+.bento-formkit {
+    width: 100%;
+    line-height: 24px;
+    max-width: 600px;
+    box-sizing: border-box;
+    padding: 50px 20px;
+    border-radius: 12px;
+    background: var(--page);
+    border: 1px solid var(--hairline);
+    /* Amber signal accent, the one place the dye signal colour earns its keep. */
+    border-top: 4px solid var(--signal);
+    box-shadow: 0 1px 2px 0 rgba(15, 23, 42, 0.1);
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.bento-formkit-headline {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--ink-display);
+    line-height: 1.2;
+    margin-bottom: 10px;
+}
+
+.bento-formkit-subheader {
+    font-size: 16px;
+    color: var(--ink-muted);
+    margin-bottom: 20px;
+}
+
+.bento-formkit input[type="email"],
+.bento-formkit input[type="text"] {
+    display: block;
+    width: 100%;
+    background-color: var(--surface);
+    border-radius: 12px;
+    border: 2px solid var(--hairline);
+    color: var(--ink-display);
+    cursor: text;
+    margin: 0 auto 12px;
+    padding: 9px 10px;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 16px;
+}
+
+/* Neutral-until-touched validation. script.js sets `data-touched` on blur with
+   content and on submit, so an empty required field never reads red on first
+   click (the old `:focus:invalid` rule did exactly that). */
+.bento-formkit input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.15);
+    outline: none;
+}
+
+.bento-formkit input[data-touched]:valid {
+    border-color: var(--accent);
+}
+
+.bento-formkit input[data-touched]:invalid {
+    /* Error red sits outside the dye palette on purpose. */
+    border-color: #b91c1c;
+    box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.12);
+}
+
+.bento-formkit button {
+    text-align: center;
+    background-color: var(--accent);
+    font-weight: 800;
+    color: var(--page);
+    padding: 12px 20px;
+    margin: 0 auto;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 12px;
+    font-size: 18px;
+    box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.bento-formkit button:hover {
+    background-color: var(--accent-darker);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(var(--accent-rgb), 0.28);
+}
+
+.bento-formkit button:focus-visible {
+    outline: 3px solid var(--signal);
+    outline-offset: 2px;
+}
+
+.bento-formkit-disclosure {
+    font-size: 12px;
+    color: var(--ink-muted);
+    margin-top: 12px;
+    line-height: 1.5;
+}
+
+/* ---------------------------------------------------------------------------
+   Closing CTA and share row
+   --------------------------------------------------------------------------- */
+.cta-section {
+    background: var(--page);
+    padding: 4rem;
+    border-radius: 1rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(15, 23, 42, 0.05);
+    border: 1px solid var(--hairline);
+    margin-bottom: 2rem;
+}
+
+.cta-section h2 {
+    font-size: 2rem;
+    color: var(--ink-display);
+    margin-bottom: 1rem;
+}
+
+.cta-section p {
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+    color: var(--ink-muted);
+    font-size: 1.125rem;
+    line-height: 1.6;
+}
+
+.cta-section .primary-button {
+    display: inline-block;
+    font-size: 1.125rem;
+    padding: 1rem 2rem;
+}
+
+.community-links {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--hairline);
+}
+
+.spread-text {
+    font-size: 1rem;
+    color: var(--ink-muted);
+    margin-bottom: 1rem;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* One quiet ghost style for all three share links. The old Facebook blue,
+   Bluesky blue and Threads black were the loudest marks in the last viewport. */
+.action-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--hairline);
+    background: var(--page);
+    color: var(--ink-body);
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.action-button:hover {
+    color: var(--accent-darker);
+    border-color: var(--accent);
+    background: var(--accent-faded);
+}
+
+/* ---------------------------------------------------------------------------
+   Thank-you page
+   --------------------------------------------------------------------------- */
+.thank-you-section {
+    text-align: center;
+    padding: 4rem 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.thank-you-title {
+    color: var(--accent);
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+.thank-you-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 2rem 0;
+}
+
+.thank-you-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 700;
+    transition: transform 0.2s ease, box-shadow 0.2s ease,
+        background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    min-width: 200px;
+    text-align: center;
+}
+
+.thank-you-button.download-button {
+    background-color: var(--accent);
+    color: var(--page);
+    border: 2px solid var(--accent);
+}
+
+.thank-you-button.return-button {
+    background-color: var(--page);
+    color: var(--accent);
+    border: 2px solid var(--accent);
+}
+
+.thank-you-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
+}
+
+.thank-you-button.download-button:hover {
+    background-color: var(--accent-darker);
+    border-color: var(--accent-darker);
+    color: var(--page);
+}
+
+.thank-you-button.return-button:hover {
+    background-color: var(--accent);
+    color: var(--page);
+}
+
+.additional-resources {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--hairline);
+}
+
+.resource-list {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.resource-link {
+    display: inline-block;
+    padding: 1rem;
+    border: 1px solid var(--hairline);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--ink-body);
+    transition: background-color 0.2s ease, border-color 0.2s ease,
+        transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.resource-link:hover {
+    background: var(--surface);
+    border-color: var(--accent);
+    color: var(--ink-body);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(15, 23, 42, 0.1);
+}
+
+/* ---------------------------------------------------------------------------
+   Legal pages
+   --------------------------------------------------------------------------- */
+.legal-section {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.legal-content {
+    margin-top: 3rem;
+}
+
+.legal-content h2 {
+    color: var(--accent);
+    font-size: 1.5rem;
+    margin: 2rem 0 1rem;
+}
+
+.legal-content p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.legal-content ul {
+    margin: 1rem 0 2rem;
+    padding-left: 1.5rem;
+}
+
+.legal-content li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.legal-content a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.legal-content a:hover {
+    color: var(--accent-darker);
+    text-decoration: underline;
+}
+
+.legal-footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--hairline);
+    text-align: center;
+}
+
+/* ---------------------------------------------------------------------------
+   Progress UI (styles moved out of script.js, which used to inject them).
+   --------------------------------------------------------------------------- */
+.save-indicator {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--accent);
+    color: var(--page);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.9em;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 200;
+}
+
+.save-indicator.show {
+    opacity: 1;
+}
+
+.progress-counter {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--page);
+    border: 1px solid var(--hairline);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+}
+
+.progress-counter.is-complete {
+    border-left-color: var(--signal);
+}
+
+.progress-counter-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.progress-counter-label {
+    font-weight: 700;
+    color: var(--ink-display);
+    font-size: 0.9375rem;
+}
+
+.progress-reset {
+    background: transparent;
+    border: 1px solid var(--hairline);
+    color: var(--ink-muted);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    padding: 0.375rem 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.progress-reset:hover {
+    color: var(--accent-darker);
+    border-color: var(--accent);
+    background: var(--accent-faded);
+}
+
+.progress-reset:focus-visible {
+    outline: 3px solid var(--signal);
+    outline-offset: 2px;
+}
+
+.progress-track {
+    height: 6px;
+    background: var(--hairline);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0;
+    background: var(--accent);
+    border-radius: 999px;
+    transition: width 0.25s ease;
+}
+
+.progress-counter.is-complete .progress-fill {
+    background: var(--signal);
+}
+
+.section-progress {
+    display: inline-block;
+    margin-top: 0.75rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: 999px;
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    color: var(--ink-muted);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+.section-progress.is-complete {
+    background: var(--accent-faded);
+    border-color: var(--accent);
+    color: var(--accent-darker);
+}
+
+/* ---------------------------------------------------------------------------
+   Connect section
+   --------------------------------------------------------------------------- */
+.connect-section {
+    margin: 4rem auto;
+    padding: 2rem;
+    text-align: center;
+    border-top: 1px solid var(--hairline);
+}
+
+.connect-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.connect-content h3 {
+    color: var(--ink-muted);
+    font-size: 1.125rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+}
+
+.connect-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.connect-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--accent);
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+    font-size: 0.9375rem;
+}
+
+.connect-link:hover {
+    color: var(--accent-darker);
+    background: var(--accent-faded);
+    transform: translateY(-1px);
+}
+
+.connect-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.connect-footer {
+    color: var(--ink-muted);
+    font-size: 0.875rem;
+    margin-top: 2rem;
+}
+
+/* ---------------------------------------------------------------------------
+   Slim mobile-only sticky capture bar. Hidden on desktop, dismissible, and the
+   dismissal is remembered in localStorage (see script.js).
+   --------------------------------------------------------------------------- */
+.sticky-capture {
+    display: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Responsive
+   --------------------------------------------------------------------------- */
 @media (max-width: 768px) {
+    .section-container {
+        padding: 1rem;
+    }
+
+    .section {
+        padding: 2rem;
+    }
+
+    .section-header {
+        text-align: center;
+    }
+
+    .section-badge {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .section h2 {
+        font-size: 1.5rem;
+    }
+
+    .section-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .checklist-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .email-capture-section {
+        padding: 2rem;
+    }
+
+    .capture-content h2 {
+        font-size: 1.75rem;
+    }
+
+    .cta-section {
+        padding: 2rem;
+    }
+
+    .cta-section h2 {
+        font-size: 1.75rem;
+    }
+
+    .cta-section p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
     .hero {
         padding: 3rem 1rem;
     }
@@ -727,10 +1056,7 @@ input[type="checkbox"] {
         justify-content: center;
     }
 
-    .social-proof {
-        text-align: center;
-    }
-
+    .social-proof,
     .proof-header {
         text-align: center;
     }
@@ -749,422 +1075,16 @@ input[type="checkbox"] {
         margin-top: 2rem;
         padding: 0 1rem;
     }
-}
 
-.bento-formkit { 
-    width: 100% !important; 
-    line-height: 24px !important; 
-    max-width: 600px !important; 
-    box-sizing: border-box !important; 
-    padding: 50px 20px !important; 
-    border-radius: 12px !important; 
-    background: #fff !important; 
-    border: 2px solid rgba(0, 0, 0, 0.15) !important; 
-    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1) !important; 
-    font-family: gs-inter-2020-11, 'Helvetica Neue', Helvetica, Arial, sans-serif !important; 
-    position: relative !important; 
-    margin: 0 auto !important; 
-    text-align: center !important;
-}
-
-.bento-formkit-headline { 
-    font-size: 24px !important; 
-    font-weight: bold !important; 
-    color: #333 !important; 
-    margin-bottom: 10px !important; 
-}
-
-.bento-formkit-subheader { 
-    font-size: 16px !important; 
-    color: #666 !important; 
-    margin-bottom: 20px !important; 
-}
-
-.bento-formkit input[type="email"] { 
-    display: block !important; 
-    width: 100% !important; 
-    background-color: #fff !important; 
-    border-radius: 12px !important; 
-    border: 2px solid #ccc !important; 
-    color: #333 !important; 
-    cursor: text !important; 
-    margin: 0 auto 12px !important; 
-    padding: 9px 10px !important; 
-    box-sizing: border-box !important; 
-    font-size: 16px !important;
-}
-
-/* Neutral-until-touched validation. script.js sets `data-touched` on blur with
-   content and on submit, so an empty required field never reads red on first
-   click (the old `:focus:invalid` rule did exactly that). */
-.bento-formkit input:focus {
-    border-color: #157a50 !important;
-    box-shadow: 0 0 0 3px rgba(21, 122, 80, 0.15) !important;
-    outline: none !important;
-}
-
-.bento-formkit input[data-touched]:valid {
-    border-color: #157a50 !important;
-}
-
-.bento-formkit input[data-touched]:invalid {
-    border-color: #b91c1c !important;
-    box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.12) !important;
-}
-
-.bento-formkit button {
-    text-align: center !important;
-    background-color: #157a50 !important;
-    font-weight: 800 !important;
-    color: white !important;
-    padding: 12px 20px !important;
-    margin: 0 auto !important;
-    border: none !important;
-    cursor: pointer !important;
-    width: 100% !important;
-    border-radius: 12px !important;
-}
-
-
-.community-links {
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 1px solid #eee;
-}
-
-.spread-text {
-    font-size: 1rem;
-    color: #666;
-    margin-bottom: 1rem;
-}
-
-.action-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.action-button {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.action-button:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.action-button.fb-color {
-    background-color: #1877F2;
-    color: white;
-}
-
-.action-button.sky-color {
-    background-color: #0560FF;
-    color: white;
-}
-
-.action-button.dark-color {
-    background-color: #000000;
-    color: white;
-}
-
-@media (max-width: 768px) {
     .action-buttons {
         flex-direction: column;
     }
-    
+
     .action-button {
         width: 100%;
         justify-content: center;
     }
-}
 
-/* Thank You Page Styles */
-.thank-you-section {
-    text-align: center;
-    padding: 4rem 1rem;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.thank-you-actions {
-    margin: 2rem 0;
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.additional-resources {
-    margin-top: 4rem;
-    padding-top: 2rem;
-    border-top: 1px solid #eee;
-}
-
-.resource-list {
-    list-style: none;
-    padding: 0;
-    margin: 2rem 0;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.resource-link {
-    display: inline-block;
-    padding: 1rem;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.3s ease;
-}
-
-.resource-link:hover {
-    background: #f9f9f9;
-    transform: translateY(-2px);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-@media (max-width: 640px) {
-    .thank-you-actions {
-        flex-direction: column;
-    }
-    
-    .thank-you-actions .primary-button {
-        width: 100%;
-    }
-}
-
-/* Thank You Page Specific Styles */
-.thank-you-title {
-    color: #008060;
-    font-size: 3rem;
-    margin-bottom: 1.5rem;
-    line-height: 1.2;
-}
-
-.thank-you-button {
-    display: inline-block;
-    padding: 1rem 2rem;
-    font-size: 1.125rem;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    min-width: 200px;
-    text-align: center;
-}
-
-.thank-you-button.download-button {
-    background-color: #008060;
-    color: white;
-    border: 2px solid #008060;
-}
-
-.thank-you-button.return-button {
-    background-color: white;
-    color: #008060;
-    border: 2px solid #008060;
-}
-
-.thank-you-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.thank-you-button.download-button:hover {
-    background-color: #006048;
-    border-color: #006048;
-}
-
-.thank-you-button.return-button:hover {
-    background-color: #008060;
-    color: white;
-}
-
-.thank-you-actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin: 2rem 0;
-}
-
-@media (max-width: 640px) {
-    .thank-you-title {
-        font-size: 2rem;
-    }
-    
-    .thank-you-actions {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .thank-you-button {
-        width: 100%;
-        max-width: 300px;
-    }
-}
-
-/* The old blanket `input:invalid` / `input:valid` pair lived here. It painted an
-   untouched required email red at rest, so it is gone; the touched-gated rules
-   above (`input[data-touched]:valid|:invalid`) carry validation now. */
-
-/* Amber signal accent on the capture card, the one place the dye signal colour
-   earns its keep on this page. */
-.bento-formkit {
-    border-top: 4px solid #fcd34d !important;
-}
-
-/* Optional first-name field: mirror the email input, neutral resting border
-   (placed after the generic :valid/:invalid rules so an empty optional field
-   stays neutral grey rather than reading as validated-green). */
-.bento-formkit input[type="text"] {
-    display: block !important;
-    width: 100% !important;
-    background-color: #fff !important;
-    border-radius: 12px !important;
-    border: 2px solid #ccc !important;
-    color: #333 !important;
-    cursor: text !important;
-    margin: 0 auto 12px !important;
-    padding: 9px 10px !important;
-    box-sizing: border-box !important;
-    font-size: 16px !important;
-}
-
-/* ---------------------------------------------------------------------------
-   Progress UI (dye tokens: accent #157a50, signal #fcd34d, slate neutrals).
-   Styles moved out of script.js, which used to inject them at runtime.
-   --------------------------------------------------------------------------- */
-.save-indicator {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #157a50;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 0.9em;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-    z-index: 200;
-}
-
-.save-indicator.show {
-    opacity: 1;
-}
-
-.progress-counter {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-left: 4px solid #157a50;
-    border-radius: 8px;
-    padding: 0.75rem 1rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
-}
-
-.progress-counter.is-complete {
-    border-left-color: #fcd34d;
-}
-
-.progress-counter-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 0.5rem;
-}
-
-.progress-counter-label {
-    font-weight: 600;
-    color: #0f172a;
-    font-size: 0.9375rem;
-}
-
-.progress-reset {
-    background: transparent;
-    border: 1px solid #e2e8f0;
-    color: #64748b;
-    font-size: 0.8125rem;
-    font-weight: 500;
-    padding: 0.375rem 0.75rem;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-}
-
-.progress-reset:hover {
-    color: #105c3c;
-    border-color: #157a50;
-    background: #e3efea;
-}
-
-.progress-reset:focus-visible {
-    outline: 3px solid #fcd34d;
-    outline-offset: 2px;
-}
-
-.progress-track {
-    height: 6px;
-    background: #e2e8f0;
-    border-radius: 999px;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    width: 0;
-    background: #157a50;
-    border-radius: 999px;
-    transition: width 0.25s ease;
-}
-
-.progress-counter.is-complete .progress-fill {
-    background: #fcd34d;
-}
-
-.section-progress {
-    display: inline-block;
-    margin-top: 0.75rem;
-    padding: 0.25rem 0.625rem;
-    border-radius: 999px;
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    color: #64748b;
-    font-size: 0.8125rem;
-    font-weight: 600;
-    font-variant-numeric: tabular-nums;
-}
-
-.section-progress.is-complete {
-    background: #e3efea;
-    border-color: #157a50;
-    color: #105c3c;
-}
-
-/* ---------------------------------------------------------------------------
-   Slim mobile-only sticky capture bar. Hidden on desktop, dismissible, and the
-   dismissal is remembered in localStorage (see script.js).
-   --------------------------------------------------------------------------- */
-.sticky-capture {
-    display: none;
-}
-
-@media (max-width: 768px) {
     .sticky-capture:not([hidden]) {
         display: flex;
         align-items: center;
@@ -1175,8 +1095,9 @@ input[type="checkbox"] {
         bottom: 0;
         z-index: 150;
         padding: 0.625rem 0.75rem;
-        background: #ffffff;
-        border-top: 3px solid #fcd34d;
+        padding-bottom: calc(0.625rem + env(safe-area-inset-bottom));
+        background: var(--page);
+        border-top: 3px solid var(--signal);
         box-shadow: 0 -2px 12px rgba(15, 23, 42, 0.12);
     }
 
@@ -1184,13 +1105,13 @@ input[type="checkbox"] {
         flex: 1;
         font-size: 0.8125rem;
         line-height: 1.35;
-        color: #334155;
+        color: var(--ink-body);
     }
 
     .sticky-capture-cta {
         flex-shrink: 0;
-        background: #157a50;
-        color: #ffffff;
+        background: var(--accent);
+        color: var(--page);
         text-decoration: none;
         font-size: 0.8125rem;
         font-weight: 700;
@@ -1202,7 +1123,7 @@ input[type="checkbox"] {
         flex-shrink: 0;
         background: transparent;
         border: none;
-        color: #64748b;
+        color: var(--ink-muted);
         font-size: 1.25rem;
         line-height: 1;
         padding: 0.25rem 0.375rem;
@@ -1215,6 +1136,48 @@ input[type="checkbox"] {
     }
 }
 
+@media (max-width: 640px) {
+    .connect-section {
+        margin: 2rem auto;
+        padding: 1.5rem;
+    }
+
+    .connect-link {
+        padding: 0.5rem;
+    }
+
+    .thank-you-title {
+        font-size: 2rem;
+    }
+
+    .thank-you-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .thank-you-actions .primary-button,
+    .thank-you-button {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+/* Stack the hero CTAs full width on the narrowest phones so neither label
+   wraps mid-word. */
+@media (max-width: 480px) {
+    .hero-cta {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero-cta button {
+        width: 100%;
+    }
+}
+
+/* ---------------------------------------------------------------------------
+   Print
+   --------------------------------------------------------------------------- */
 @media print {
     .hero, .hero-cta, .email-capture-section, .community-links,
     .cta-section, .connect-section, .sticky-capture,
@@ -1230,207 +1193,19 @@ input[type="checkbox"] {
     .checklist-grid {
         grid-template-columns: 1fr !important;
     }
-    
+
     .checklist-item {
         break-inside: avoid;
         page-break-inside: avoid;
     }
-    
+
     body {
         background: none !important;
     }
-    
+
     .section {
         border: none !important;
         box-shadow: none !important;
         margin-bottom: 1rem !important;
     }
 }
-
-/* Legal Pages Styles */
-.legal-section {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.legal-content {
-    margin-top: 3rem;
-}
-
-.legal-content h2 {
-    color: #008060;
-    font-size: 1.5rem;
-    margin: 2rem 0 1rem;
-}
-
-.legal-content p {
-    margin-bottom: 1rem;
-    line-height: 1.6;
-}
-
-.legal-content ul {
-    margin: 1rem 0 2rem;
-    padding-left: 1.5rem;
-}
-
-.legal-content li {
-    margin-bottom: 0.5rem;
-    line-height: 1.6;
-}
-
-.legal-content a {
-    color: #008060;
-    text-decoration: none;
-}
-
-.legal-content a:hover {
-    text-decoration: underline;
-}
-
-.legal-footer {
-    margin-top: 4rem;
-    padding-top: 2rem;
-    border-top: 1px solid #eee;
-    text-align: center;
-}
-
-.thank-you-button {
-    display: inline-block;
-    padding: 1rem 2rem;
-    font-size: 1.125rem;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    min-width: 200px;
-    text-align: center;
-}
-
-.thank-you-button.download-button {
-    background-color: #008060;
-    color: white;
-    border: 2px solid #008060;
-}
-
-.thank-you-button.return-button {
-    background-color: white;
-    color: #008060;
-    border: 2px solid #008060;
-}
-
-.thank-you-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.thank-you-button.download-button:hover {
-    background-color: #006048;
-    border-color: #006048;
-}
-
-.thank-you-button.return-button:hover {
-    background-color: #008060;
-    color: white;
-}
-
-.thank-you-actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin: 2rem 0;
-}
-
-@media (max-width: 640px) {
-    .thank-you-title {
-        font-size: 2rem;
-    }
-    
-    .thank-you-actions {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .thank-you-button {
-        width: 100%;
-        max-width: 300px;
-    }
-}
-
-/* Connect Section Styles */
-.connect-section {
-    margin: 4rem auto;
-    padding: 2rem;
-    text-align: center;
-    border-top: 1px solid rgba(0, 128, 96, 0.1);
-}
-
-.connect-content {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.connect-content h3 {
-    color: #666;
-    font-size: 1.125rem;
-    font-weight: 500;
-    margin-bottom: 1.5rem;
-}
-
-.connect-links {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-bottom: 2rem;
-}
-
-.connect-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    color: #008060;
-    text-decoration: none;
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-    font-size: 0.9375rem;
-}
-
-.connect-link:hover {
-    background: rgba(0, 128, 96, 0.05);
-    transform: translateY(-1px);
-}
-
-.connect-icon {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-}
-
-.connect-footer {
-    color: #666;
-    font-size: 0.875rem;
-    margin-top: 2rem;
-}
-
-.connect-footer a {
-    color: #008060;
-    text-decoration: none;
-    transition: color 0.2s ease;
-}
-
-.connect-footer a:hover {
-    color: #006048;
-    text-decoration: underline;
-}
-
-@media (max-width: 640px) {
-    .connect-section {
-        margin: 2rem auto;
-        padding: 1.5rem;
-    }
-    
-    .connect-link {
-        padding: 0.5rem;
-    }
-}
-  
