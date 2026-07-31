@@ -410,6 +410,38 @@ button {
     transform: translateY(0) scale(0.99);
 }
 
+/* Amber flag on the items whose own copy calls them fast wins. */
+.checklist-item[data-quick-win] .checkbox-content::before {
+    content: 'Quick win';
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--signal-darker);
+    margin-bottom: 0.375rem;
+}
+
+/* "Hide done" filter, toggled from the progress counter (script.js). */
+body.hide-done .checklist-item.is-done {
+    display: none;
+}
+
+/* Deep links (#col2 and friends) land on the checkbox; clear the sticky
+   counter, then flash the card so the link visibly arrived somewhere. */
+input[type="checkbox"] {
+    scroll-margin-top: 7rem;
+}
+
+.checklist-item:has(input:target) {
+    animation: target-flash 1.2s ease-out 1;
+}
+
+@keyframes target-flash {
+    0% { box-shadow: 0 0 0 3px var(--signal); }
+    100% { box-shadow: 0 0 0 3px transparent; }
+}
+
 /* Checked state. No strikethrough: done items still get re-read while
    working, so the faded surface alone carries the signal. Text stays on
    ink-body: ink-muted on accent-faded is 4.03:1, under AA. */
@@ -928,7 +960,8 @@ label:hover {
     display: none;
 }
 
-.progress-reset {
+.progress-reset,
+.progress-hide-done {
     background: transparent;
     border: 1px solid var(--hairline);
     color: var(--ink-muted);
@@ -938,6 +971,23 @@ label:hover {
     border-radius: 6px;
     cursor: pointer;
     transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.progress-hide-done:hover {
+    color: var(--accent-darker);
+    border-color: var(--accent);
+    background: var(--accent-faded);
+}
+
+.progress-hide-done[aria-pressed="true"] {
+    color: var(--accent-darker);
+    border-color: var(--accent);
+    background: var(--accent-faded);
+}
+
+.progress-hide-done:focus-visible {
+    outline: 3px solid var(--signal);
+    outline-offset: 2px;
 }
 
 .progress-reset:hover {
@@ -1315,6 +1365,13 @@ label:hover {
     .sticky-capture:not([hidden]) {
         animation: none;
     }
+
+    /* Deep-link arrival stays visible without the flash: a static ring
+       that holds while the anchor is the target. */
+    .checklist-item:has(input:target) {
+        animation: none;
+        box-shadow: 0 0 0 3px var(--signal);
+    }
 }
 
 /* ---------------------------------------------------------------------------
@@ -1323,8 +1380,15 @@ label:hover {
 @media print {
     .hero, .hero-cta, .email-capture-section, .community-links,
     .cta-section, .connect-section, .sticky-capture,
-    .progress-reset, .save-indicator {
+    .progress-reset, .progress-hide-done, .save-indicator {
         display: none !important;
+    }
+
+    /* People print checklists: keep the checked state's fills on paper. */
+    input[type="checkbox"],
+    .checklist-item.is-done {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
     }
 
     .progress-counter {

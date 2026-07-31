@@ -63,9 +63,10 @@ function buildProgressCounter(container) {
         <div class="progress-counter-row">
             <span class="progress-counter-label" data-progress-text>0 of 0 done</span>
             <a class="progress-complete-cta" href="#pdf-download" hidden>You’ve completed the checklist <span class="pop">🎉</span> Now get a PDF copy to reference next time</a>
+            <button type="button" class="progress-hide-done" data-hide-done aria-pressed="false">Hide done</button>
             <button type="button" class="progress-reset" data-progress-reset>Reset progress</button>
         </div>
-        <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="progress-track" role="progressbar" aria-label="Checklist progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
             <div class="progress-fill" data-progress-fill></div>
         </div>
     `;
@@ -232,6 +233,24 @@ document.addEventListener('DOMContentLoaded', () => {
             updateProgress();
             showSaveIndicator(saveIndicator);
         });
+    }
+
+    // "Hide done" filter; the choice sticks per browser.
+    if (progressDiv) {
+        const hideButton = progressDiv.querySelector('[data-hide-done]');
+        if (hideButton) {
+            const applyHideDone = (on) => {
+                document.body.classList.toggle('hide-done', on);
+                hideButton.setAttribute('aria-pressed', String(on));
+                hideButton.textContent = on ? 'Show done' : 'Hide done';
+            };
+            applyHideDone(localStorage.getItem('seoChecklistHideDone') === 'true');
+            hideButton.addEventListener('click', () => {
+                const on = !document.body.classList.contains('hide-done');
+                applyHideDone(on);
+                localStorage.setItem('seoChecklistHideDone', String(on));
+            });
+        }
     }
 
     updateProgress();
