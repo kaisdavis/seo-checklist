@@ -409,13 +409,18 @@ button {
 }
 
 /* Checked state. No strikethrough: done items still get re-read while
-   working, so the signal is a faded surface and a muted label. */
+   working, so the faded surface alone carries the signal. Text stays on
+   ink-body: ink-muted on accent-faded is 4.03:1, under AA. */
 .checklist-item.is-done {
     background: var(--accent-faded);
 }
 
 .checklist-item.is-done .checkbox-content label {
-    color: var(--ink-muted);
+    color: var(--ink-body);
+}
+
+.checklist-item.is-done .item-description {
+    color: var(--ink-body);
 }
 
 /* Keep the hover affordance on a done card: it is still a toggle. */
