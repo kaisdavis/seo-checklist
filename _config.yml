@@ -1,0 +1,20 @@
+# GitHub Pages serves this repo from the branch root, so every tracked file is
+# published unless it is excluded here. Anything that is working material rather
+# than a page belongs in this list. Adding a file to the repo without adding it
+# here publishes it at https://shopifyseochecklist.net/<path>.
+#
+# `exclude` replaces Jekyll's built-in list, so the usual entries are repeated.
+
+exclude:
+  - README.md
+  - scripts
+  - build
+  - .claude
+  - .github
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+
+# Nothing here uses Jekyll templating; the pages are plain HTML served as-is.
+markdown: kramdown
