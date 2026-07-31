@@ -495,13 +495,6 @@ label:hover {
     margin: 0 auto;
 }
 
-.capture-description {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 1.25rem;
-    margin-bottom: 3rem;
-    line-height: 1.6;
-}
-
 .bento-formkit {
     width: 100%;
     line-height: 24px;
