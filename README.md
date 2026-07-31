@@ -62,7 +62,9 @@ all comes from `index.html`.
 | Path | What it is |
 | --- | --- |
 | `index.html` | the checklist itself, source of truth for all item copy |
-| `styles.css`, `script.js`, `tracking.js` | site styles and behavior |
+| `styles.css`, `script.js`, `tracking.js` | site styles and behavior; styles.css carries the DYE design tokens (same palette as the PDF) with the webfonts embedded as data URIs |
+| `fonts/` | canonical woff2 binaries (Bricolage Grotesque 800, Atkinson Hyperlegible 400/700); the served copies live base64-inlined in styles.css |
+| `pdf-preview-860.webp/.jpg` | hero image, a render of PDF page 1; regenerate via `build-pdf.py --png --png-pages 1` after cover changes |
 | `thank-you.html` | post-signup page, links to the PDF |
 | `simple-checklist.html`, `privacy.html`, `terms.html`, `404.html` | supporting pages |
 | `scripts/build-pdf.py` | the PDF generator |
