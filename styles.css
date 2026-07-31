@@ -495,12 +495,6 @@ label:hover {
     margin: 0 auto;
 }
 
-.capture-content h2 {
-    color: var(--page);
-    font-size: 2rem;
-    margin-bottom: 1rem;
-}
-
 .capture-description {
     color: rgba(255, 255, 255, 0.9);
     font-size: 1.25rem;
@@ -1036,10 +1030,6 @@ label:hover {
 
     .email-capture-section {
         padding: 2rem;
-    }
-
-    .capture-content h2 {
-        font-size: 1.75rem;
     }
 
     .cta-section {
