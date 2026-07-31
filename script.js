@@ -62,7 +62,7 @@ function buildProgressCounter(container) {
     progressDiv.innerHTML = `
         <div class="progress-counter-row">
             <span class="progress-counter-label" data-progress-text>0 of 0 done</span>
-            <a class="progress-complete-cta" href="#pdf-download" hidden>You’ve completed the checklist 🎉 Now get a PDF copy to reference next time</a>
+            <a class="progress-complete-cta" href="#pdf-download" hidden>You’ve completed the checklist <span class="pop">🎉</span> Now get a PDF copy to reference next time</a>
             <button type="button" class="progress-reset" data-progress-reset>Reset progress</button>
         </div>
         <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
@@ -179,7 +179,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Completion moment: the finished checklist offers the PDF.
-        if (completeCta) completeCta.hidden = !allDone;
+        // Unhide first, add .is-in a frame later so the entrance transition
+        // actually runs (a transition can't start from display: none).
+        if (completeCta) {
+            if (allDone && completeCta.hidden) {
+                completeCta.hidden = false;
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => completeCta.classList.add('is-in'));
+                });
+            } else if (!allDone) {
+                completeCta.hidden = true;
+                completeCta.classList.remove('is-in');
+            }
+        }
 
         if (progressText) {
             const percentage = totalCheckboxes
