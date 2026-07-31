@@ -1110,6 +1110,62 @@ label:hover {
 }
 
 /* ---------------------------------------------------------------------------
+   FAQ block. Card idiom like the sections, but its own class so the PDF
+   parser's section count stays untouched.
+   --------------------------------------------------------------------------- */
+.faq-block {
+    background: var(--page);
+    border: 1px solid var(--hairline);
+    border-radius: 1rem;
+    padding: 3rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(15, 23, 42, 0.05);
+}
+
+.faq-block h2 {
+    font-size: 1.75rem;
+    color: var(--ink-display);
+    margin: 0 0 0.5rem;
+}
+
+.faq-item {
+    max-width: 70ch;
+    padding: 1.5rem 0 0.25rem;
+}
+
+.faq-item + .faq-item {
+    border-top: 1px solid var(--hairline);
+}
+
+.faq-item h3 {
+    font-size: 1.125rem;
+    color: var(--ink-display);
+    margin: 0 0 0.5rem;
+}
+
+.faq-item p,
+.faq-item ul {
+    color: var(--ink-body);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    margin: 0 0 0.75rem;
+}
+
+.faq-item ul {
+    padding-left: 1.25rem;
+}
+
+.faq-item li {
+    margin-bottom: 0.375rem;
+}
+
+@media (max-width: 768px) {
+    .faq-block {
+        padding: 2rem;
+    }
+}
+
+/* ---------------------------------------------------------------------------
    Connect section
    --------------------------------------------------------------------------- */
 .connect-section {
