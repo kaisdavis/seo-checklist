@@ -267,8 +267,20 @@ button {
     background: var(--hairline);
 }
 
-/* The hero art is page 1 of the actual PDF, framed as a sheet of paper: white
-   page, hairline border, one quiet amber rule on top echoing the capture card. */
+/* Provenance line under the stats: where the numbers come from, and the
+   trail to the fuller evidence. */
+.stats-source {
+    margin: 1rem 0 0;
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+}
+
+/* The hero art is a re-typeset excerpt of the real PDF (three items of the
+   collection section), framed as a sheet of paper: white page, hairline
+   border, one quiet amber rule on top echoing the capture card. Real text,
+   not a raster: legible, selectable, and screen-reader visible. The whole
+   card is one anchor to the capture form, so nothing inside renders as a
+   link of its own. */
 .hero-image-wrapper {
     display: flex;
     justify-content: center;
@@ -276,7 +288,7 @@ button {
 
 .pdf-preview-link {
     display: block;
-    max-width: 100%;
+    max-width: 30rem;
     background: var(--page);
     border: 1px solid var(--hairline);
     border-top: 4px solid var(--signal);
@@ -284,6 +296,8 @@ button {
     overflow: hidden;
     box-shadow: 0 12px 28px rgba(15, 23, 42, 0.1);
     transition: transform 0.18s ease-out, box-shadow 0.18s ease-out;
+    text-decoration: none;
+    padding: 1.75rem 2rem 0;
 }
 
 .pdf-preview-link:hover,
@@ -292,12 +306,66 @@ button {
     box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16);
 }
 
-.hero-image {
+.excerpt-kicker {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    font-variant-numeric: tabular-nums;
+    border-bottom: 2px solid var(--signal);
+    padding-bottom: 0.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.excerpt-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.excerpt-list li {
+    display: flex;
+    gap: 0.75rem;
+    padding: 1rem 0;
+}
+
+.excerpt-list li + li {
+    border-top: 1px solid var(--hairline);
+}
+
+.excerpt-box {
+    flex-shrink: 0;
+    width: 1.125rem;
+    height: 1.125rem;
+    margin-top: 0.125rem;
+    border: 2px solid var(--hairline);
+    border-radius: 0.3125rem;
+    box-sizing: border-box;
+}
+
+.excerpt-body {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--ink-body);
+}
+
+.excerpt-body strong {
     display: block;
-    width: auto;
-    max-width: 100%;
-    max-height: 620px;
-    height: auto;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink-display);
+    margin-bottom: 0.25rem;
+}
+
+.excerpt-foot {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--accent-darker);
+    border-top: 1px solid var(--hairline);
+    padding: 1rem 0 1.25rem;
 }
 
 /* ---------------------------------------------------------------------------
@@ -1325,8 +1393,12 @@ label:hover {
         padding: 0 1rem;
     }
 
-    .hero-image {
-        max-height: 420px;
+    /* Two items are plenty on a phone; the disclosure line stays honest
+       about it either way ("3 of 35" refers to the desktop card). */
+    @media (max-width: 480px) {
+        .excerpt-list li:nth-child(3) {
+            display: none;
+        }
     }
 
     .action-buttons {
