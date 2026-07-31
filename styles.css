@@ -531,7 +531,7 @@ label:hover {
     font-weight: 800;
     color: var(--ink-display);
     line-height: 1.2;
-    margin-bottom: 10px;
+    margin: 0 0 10px;
 }
 
 .bento-formkit-subheader {
@@ -708,45 +708,15 @@ label:hover {
     margin: 2rem 0;
 }
 
-.thank-you-button {
+/* Thank-you actions ride the shared .primary-button system; this scoped rule
+   only carries the page-specific sizing. */
+.thank-you-actions .primary-button {
     display: inline-block;
     padding: 1rem 2rem;
     font-size: 1.125rem;
-    text-decoration: none;
-    border-radius: 8px;
     font-weight: 700;
-    transition: transform 0.2s ease, box-shadow 0.2s ease,
-        background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
     min-width: 200px;
     text-align: center;
-}
-
-.thank-you-button.download-button {
-    background-color: var(--accent);
-    color: var(--page);
-    border: 2px solid var(--accent);
-}
-
-.thank-you-button.return-button {
-    background-color: var(--page);
-    color: var(--accent);
-    border: 2px solid var(--accent);
-}
-
-.thank-you-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
-}
-
-.thank-you-button.download-button:hover {
-    background-color: var(--accent-darker);
-    border-color: var(--accent-darker);
-    color: var(--page);
-}
-
-.thank-you-button.return-button:hover {
-    background-color: var(--accent);
-    color: var(--page);
 }
 
 .additional-resources {
@@ -1210,8 +1180,7 @@ label:hover {
         align-items: center;
     }
 
-    .thank-you-actions .primary-button,
-    .thank-you-button {
+    .thank-you-actions .primary-button {
         width: 100%;
         max-width: 300px;
     }
