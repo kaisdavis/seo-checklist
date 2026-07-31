@@ -62,7 +62,7 @@ function buildProgressCounter(container) {
     progressDiv.innerHTML = `
         <div class="progress-counter-row">
             <span class="progress-counter-label" data-progress-text>0 of 0 done</span>
-            <a class="progress-complete-cta" href="#pdf-download" hidden>All done. Get the PDF copy</a>
+            <a class="progress-complete-cta" href="#pdf-download" hidden>You’ve completed the checklist 🎉 Now get a PDF copy to reference next time</a>
             <button type="button" class="progress-reset" data-progress-reset>Reset progress</button>
         </div>
         <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
@@ -227,8 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Neutral-until-touched form validation. The old CSS painted an empty
     // required email red on first focus; these flags let CSS wait until the
     // visitor has actually typed and left the field, or tried to submit.
-    const captureForm = document.querySelector('.bento-formkit');
-    if (captureForm) {
+    document.querySelectorAll('.bento-formkit').forEach(captureForm => {
         const inputs = captureForm.querySelectorAll('input[type="email"], input[type="text"]');
         inputs.forEach(input => {
             input.addEventListener('blur', () => {
@@ -247,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
         captureForm.addEventListener('submit', () => {
             inputs.forEach(input => input.setAttribute('data-touched', ''));
         });
-    }
+    });
 
     // Mobile sticky capture bar. Dismissible; the dismissal sticks per browser.
     const stickyBar = document.querySelector('.sticky-capture');

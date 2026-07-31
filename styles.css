@@ -126,14 +126,10 @@ button {
     font-family: inherit;
 }
 
-.section-container, .hero {
+.section-container {
     position: relative;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
-}
-
-.section-container {
     padding: 2rem;
 }
 
@@ -144,12 +140,13 @@ button {
 /* ---------------------------------------------------------------------------
    Hero
    --------------------------------------------------------------------------- */
+/* Full bleed: the green runs edge to edge and up to the viewport top;
+   .hero-content carries the 1200px column. */
 .hero {
     padding: 6rem 2rem;
     background: linear-gradient(160deg, rgba(var(--accent-rgb), 0.08) 0%, rgba(var(--accent-rgb), 0.03) 100%);
     position: relative;
     overflow: hidden;
-    margin-top: 3rem;
 }
 
 .hero::before {
