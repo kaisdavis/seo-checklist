@@ -724,7 +724,7 @@ label:hover {
 
 /* Neutral-until-touched validation. script.js sets `data-touched` on blur with
    content and on submit, so an empty required field never reads red on first
-   click (the old `:focus:invalid` rule did exactly that). */
+   click. A bare `:focus:invalid` rule would do exactly that. */
 .bento-formkit input:focus {
     border-color: var(--accent);
     box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.15);
@@ -970,7 +970,7 @@ label:hover {
 }
 
 /* ---------------------------------------------------------------------------
-   Progress UI (styles moved out of script.js, which used to inject them).
+   Progress UI.
    --------------------------------------------------------------------------- */
 .save-indicator {
     position: fixed;

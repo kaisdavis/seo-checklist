@@ -162,9 +162,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkboxes = Array.from(document.querySelectorAll('input[type="checkbox"]'));
     const totalCheckboxes = checkboxes.length;
 
-    // Progress UI. Anchored to .section-container, which exists on the page
-    // (the old code targeted a .intro element that never shipped, so this whole
-    // feature threw a TypeError on every load).
+    // Progress UI. Anchored to .section-container, which is the element that
+    // actually exists on the page.
     const sectionContainer = document.querySelector('.section-container');
     const sectionCounters = buildSectionCounters();
     const progressDiv = sectionContainer && totalCheckboxes
@@ -263,9 +262,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateProgress();
 
-    // Neutral-until-touched form validation. The old CSS painted an empty
-    // required email red on first focus; these flags let CSS wait until the
-    // visitor has actually typed and left the field, or tried to submit.
+    // Neutral-until-touched form validation. These flags let CSS wait until the
+    // visitor has actually typed and left the field, or tried to submit, so an
+    // untouched required email is never painted red.
     document.querySelectorAll('.bento-formkit').forEach(captureForm => {
         const inputs = captureForm.querySelectorAll('input[type="email"], input[type="text"]');
         inputs.forEach(input => {
