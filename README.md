@@ -36,8 +36,8 @@ the page count, `pdftoppm` renders previews.
 - the paginator had to overflow a block taller than one page,
 - `--expect-items N` is passed and the count differs.
 
-A non-zero exit means do not ship that PDF. The old PDF used to drift out of sync by
-hand (it shipped with 28 of 35 items); these checks are what prevent a repeat.
+A non-zero exit means do not ship that PDF. The invariant these checks enforce: the
+PDF contains every section and every item in `index.html`, exactly once.
 
 **Handy flags**
 
