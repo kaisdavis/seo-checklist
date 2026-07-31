@@ -62,6 +62,7 @@ function buildProgressCounter(container) {
     progressDiv.innerHTML = `
         <div class="progress-counter-row">
             <span class="progress-counter-label" data-progress-text>0 of 0 done</span>
+            <a class="progress-complete-cta" href="#pdf-download" hidden>All done. Get the PDF copy</a>
             <button type="button" class="progress-reset" data-progress-reset>Reset progress</button>
         </div>
         <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
@@ -103,9 +104,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Make entire checklist items clickable
     const checklistItems = document.querySelectorAll('.checklist-item');
+
+    // Card + checkbox pairs, collected once so updateProgress can repaint the
+    // checked-card state without a second change listener per checkbox.
+    const itemPairs = [];
+
     checklistItems.forEach(item => {
         const itemCheckbox = item.querySelector('input[type="checkbox"]');
         if (!itemCheckbox) return;
+
+        itemPairs.push({ item, checkbox: itemCheckbox });
 
         item.style.cursor = 'pointer'; // Add pointer cursor to indicate clickability
 
@@ -159,9 +167,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressText = progressDiv ? progressDiv.querySelector('[data-progress-text]') : null;
     const progressFill = progressDiv ? progressDiv.querySelector('[data-progress-fill]') : null;
     const progressTrack = progressDiv ? progressDiv.querySelector('.progress-track') : null;
+    const completeCta = progressDiv ? progressDiv.querySelector('.progress-complete-cta') : null;
 
     function updateProgress() {
         const completed = checkboxes.filter(box => box.checked).length;
+        const allDone = totalCheckboxes > 0 && completed === totalCheckboxes;
+
+        // Checked-card state. Runs on load, on every change, and on reset.
+        itemPairs.forEach(({ item, checkbox }) => {
+            item.classList.toggle('is-done', checkbox.checked);
+        });
+
+        // Completion moment: the finished checklist offers the PDF.
+        if (completeCta) completeCta.hidden = !allDone;
 
         if (progressText) {
             const percentage = totalCheckboxes
@@ -170,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
             progressText.textContent = `${completed} of ${totalCheckboxes} done (${percentage}%)`;
             if (progressFill) progressFill.style.width = `${percentage}%`;
             if (progressTrack) progressTrack.setAttribute('aria-valuenow', String(percentage));
-            if (progressDiv) progressDiv.classList.toggle('is-complete', completed === totalCheckboxes && totalCheckboxes > 0);
+            if (progressDiv) progressDiv.classList.toggle('is-complete', allDone);
         }
 
         sectionCounters.forEach(({ boxes, chip }) => {

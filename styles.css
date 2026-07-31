@@ -400,12 +400,27 @@ button {
     background: var(--surface);
     border-radius: 0.75rem;
     padding: 1.5rem;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 180ms ease-out;
 }
 
 .checklist-item:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 16px rgba(15, 23, 42, 0.05);
+}
+
+/* Checked state. No strikethrough: done items still get re-read while
+   working, so the signal is a faded surface and a muted label. */
+.checklist-item.is-done {
+    background: var(--accent-faded);
+}
+
+.checklist-item.is-done .checkbox-content label {
+    color: var(--ink-muted);
+}
+
+/* Keep the hover affordance on a done card: it is still a toggle. */
+.checklist-item.is-done .checkbox-content label:hover {
+    color: var(--accent);
 }
 
 .checkbox-wrapper {
@@ -445,6 +460,7 @@ label:hover {
     color: var(--ink-display);
     margin-bottom: 0.5rem;
     font-size: 1.125rem;
+    transition: color 180ms ease-out;
 }
 
 .item-description {
@@ -858,7 +874,8 @@ label:hover {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    flex-wrap: wrap;
+    gap: 0.375rem 1rem;
     margin-bottom: 0.5rem;
 }
 
@@ -866,6 +883,20 @@ label:hover {
     font-weight: 700;
     color: var(--ink-display);
     font-size: 0.9375rem;
+}
+
+/* Shown by script.js only at 35/35. A quiet link, not a second button. */
+.progress-complete-cta {
+    color: var(--accent-darker);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+}
+
+.progress-complete-cta[hidden] {
+    display: none;
 }
 
 .progress-reset {
@@ -910,23 +941,24 @@ label:hover {
     background: var(--signal);
 }
 
+/* Plain typography, not a chip. The transparent rule holds the box height so
+   the complete state swaps a colour instead of shifting the layout. */
 .section-progress {
     display: inline-block;
     margin-top: 0.75rem;
-    padding: 0.25rem 0.625rem;
-    border-radius: 999px;
-    background: var(--surface);
-    border: 1px solid var(--hairline);
+    padding-bottom: 0.25rem;
+    border-bottom: 2px solid transparent;
     color: var(--ink-muted);
     font-size: 0.8125rem;
-    font-weight: 700;
+    font-weight: 600;
     font-variant-numeric: tabular-nums;
+    transition: color 180ms ease-out, border-bottom-color 180ms ease-out;
 }
 
+/* Same marker language as the section numeral: amber rule under the type. */
 .section-progress.is-complete {
-    background: var(--accent-faded);
-    border-color: var(--accent);
     color: var(--accent-darker);
+    border-bottom-color: var(--signal);
 }
 
 /* ---------------------------------------------------------------------------
@@ -1193,6 +1225,25 @@ label:hover {
 
     .hero-cta button {
         width: 100%;
+    }
+}
+
+/* ---------------------------------------------------------------------------
+   Reduced motion
+   State still changes, it just changes instantly. Covers the checked-card
+   feedback added with the completion moment plus the two pre-existing
+   animations on the checklist loop (the hover lift and the progress fill).
+   --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    .checklist-item,
+    .checkbox-content label,
+    .section-progress,
+    .progress-fill {
+        transition: none;
+    }
+
+    .checklist-item:hover {
+        transform: none;
     }
 }
 
