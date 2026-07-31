@@ -327,13 +327,43 @@ button {
 /* ---------------------------------------------------------------------------
    Sections
    --------------------------------------------------------------------------- */
+/* The top border is always 4px so completion flips a colour, never the
+   layout; transparent at rest, the amber seal when every item is done. */
 .section {
     background: var(--page);
     border: 1px solid var(--hairline);
+    border-top: 4px solid transparent;
     border-radius: 1rem;
     padding: 3rem;
     margin-bottom: 2rem;
     box-shadow: 0 4px 6px rgba(15, 23, 42, 0.05);
+    transition: border-top-color 250ms ease-out;
+}
+
+.section.is-complete {
+    border-top-color: var(--signal);
+}
+
+/* Completion stamp under the section header. Doubles as the explanation
+   for the empty card when "Hide done" has collapsed the items. */
+.section-done-note {
+    display: none;
+    margin: 1.25rem 0 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--accent-darker);
+}
+
+.section.is-complete .section-done-note {
+    display: block;
+    animation: note-in 250ms ease-out;
+}
+
+@keyframes note-in {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
 }
 
 .section-header {
@@ -1362,8 +1392,13 @@ label:hover {
     }
 
     .progress-complete-cta.is-in .pop,
-    .sticky-capture:not([hidden]) {
+    .sticky-capture:not([hidden]),
+    .section.is-complete .section-done-note {
         animation: none;
+    }
+
+    .section {
+        transition: none;
     }
 
     /* Deep-link arrival stays visible without the flash: a static ring

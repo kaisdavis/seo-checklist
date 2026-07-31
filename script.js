@@ -90,7 +90,13 @@ function buildSectionCounters() {
         chip.className = 'section-progress';
         header.appendChild(chip);
 
-        counters.push({ boxes, chip });
+        // Completion stamp; CSS shows it only while the section's .is-complete.
+        const note = document.createElement('p');
+        note.className = 'section-done-note';
+        note.textContent = '✓ Section complete';
+        header.appendChild(note);
+
+        counters.push({ section, boxes, chip });
     });
 
     return counters;
@@ -204,10 +210,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (progressDiv) progressDiv.classList.toggle('is-complete', allDone);
         }
 
-        sectionCounters.forEach(({ boxes, chip }) => {
+        sectionCounters.forEach(({ section, boxes, chip }) => {
             const done = Array.from(boxes).filter(box => box.checked).length;
+            const sectionDone = done === boxes.length;
             chip.textContent = `${done}/${boxes.length}`;
-            chip.classList.toggle('is-complete', done === boxes.length);
+            chip.classList.toggle('is-complete', sectionDone);
+            section.classList.toggle('is-complete', sectionDone);
         });
     }
 
